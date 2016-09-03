@@ -4,8 +4,10 @@
   <title>NLK WebGL Projects</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -13,17 +15,14 @@
       border-radius: 0;
     }
     
+    .dropdown-menu { background-color: #aaaaaa}
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-color: #444444}
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-image: none; }
+    .dropdown-menu>li>a { color: #333333}
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { color: #FFFFFF}
+
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
-    
-    .my-btn{
-      background: #55dd55;
-      color: #000000;
-    }
-    .my-btn:hover { 
-      border-color: #C00000; 
-      background-color: #C0C0C0; 
-    }
     
     body{
       background-color: #ff9900;
@@ -65,12 +64,16 @@
     <ul class="nav navbar-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="profile.html">Profile</a></li>
-      <li class="active"><a href="projects.html">Projects</a></li>
+      <li class="dropdown"  class="active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="projects.html">WebGL</a></li>
+          <li><a href="projects_tex.html">TeX</a></li>
+        </ul>
+      </li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
 </nav>
-
   
 <div class="container-fluid">    
   <div class="row row-eq-height">
