@@ -67,6 +67,8 @@
 }(window,document,'script'));
 </script>
 
+
+
 <script>
 
 gapi.analytics.ready(function() {
@@ -93,31 +95,7 @@ gapi.analytics.ready(function() {
 
 */
 
-  /**
-   * Creates a new DataChart instance showing sessions over the past 30 days.
-   * It will be rendered inside an element with the id "chart-1-container".
-   */
-  var dataChart1 = new gapi.analytics.googleCharts.DataChart({
-    query: {
-      /*'ids': 'ga:129082747', // <-- Replace with the ids value for your view. nickchalkida */
-      'ids': 'ga:129059391', // <-- Replace with the ids value for your view.
-       
-      'start-date': '30daysAgo',
-      'end-date': 'yesterday',
-      'metrics': 'ga:sessions,ga:users',
-      'dimensions': 'ga:date'
-    },
-    chart: {
-      'container': 'chart-1-container',
-      'type': 'LINE',
-      'options': {
-        'width': '100%'
-      }
-    }
-  });
-  dataChart1.execute();
-  
-  /**
+ /**
    * Create a new ViewSelector instance to be rendered inside of an
    * element with the id "view-selector-container".
    */
@@ -159,8 +137,16 @@ gapi.analytics.ready(function() {
   });
 
 });
+
 </script>
+
+
+ 
 </head>
+
+
+
+
 <body>
 
 <nav class="navbar navbar-inverse">
