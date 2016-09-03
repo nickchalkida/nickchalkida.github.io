@@ -46,6 +46,79 @@
       padding: 15px;
     }
     
+    
+    .container {
+  margin: 0 auto;
+  width: 250px;
+  height: 200px;
+  position: relative;
+  perspective: 1000px;
+}
+.carousel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+.item {
+  display: block;
+  position: absolute;
+  background: #000;
+  width: 250px;
+  height: 200px;
+  line-height: 200px;
+  font-size: 5em;
+  text-align: center;
+  color: #FFF;
+  opacity: 0.95;
+  border-radius: 10px;
+}
+.a {
+  transform: rotateY(0deg) translateZ(250px);
+  background-image: url('tree.jpg');
+}
+.b {
+  transform: rotateY(60deg) translateZ(250px);
+  background: #0072bc;
+}
+.c {
+  transform: rotateY(120deg) translateZ(250px);
+  background: #39b54a;
+}
+.d {
+  transform: rotateY(180deg) translateZ(250px);
+  background: #f26522;
+}
+.e {
+  transform: rotateY(240deg) translateZ(250px);
+  background: #630460;
+} 
+.f {
+  transform: rotateY(300deg) translateZ(250px);
+  background: #8c6239;
+}
+.next, .prev {
+  color: #444;
+  position: absolute;
+  top: 100px;
+  padding: 1em 2em;
+  cursor: pointer;
+  background: #CCC;
+  border-radius: 5px;
+  border-top: 1px solid #FFF;
+  box-shadow: 0 5px 0 #999;
+  transition: box-shadow 0.1s, top 0.1s;
+}
+.next:hover, .prev:hover { color: #000; }
+.next:active, .prev:active {
+  top: 104px;
+  box-shadow: 0 1px 0 #999;
+}
+.next { right: 5em; }
+.prev { left: 5em; }
+
+    
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -76,6 +149,26 @@
 }(window,document,'script'));
 </script>
 
+<script type="text/javascript">
+	var carousel = $(".carousel"),
+    currdeg  = 0;
+$(".next").on("click", { d: "n" }, rotate);
+$(".prev").on("click", { d: "p" }, rotate);
+function rotate(e){
+  if(e.data.d=="n"){
+    currdeg = currdeg - 60;
+  }
+  if(e.data.d=="p"){
+    currdeg = currdeg + 60;
+  }
+  carousel.css({
+    "-webkit-transform": "rotateY("+currdeg+"deg)",
+    "-moz-transform": "rotateY("+currdeg+"deg)",
+    "-o-transform": "rotateY("+currdeg+"deg)",
+    "transform": "rotateY("+currdeg+"deg)"
+  });
+}
+</script>
 
 
 <script>
@@ -185,7 +278,23 @@ gapi.analytics.ready(function() {
 <div id="view-selector-container"></div>
     </div>
     
-    <div class="col-xs-8 panel"> 
+    <div class="col-xs-8 panel">
+<div class="container">
+  <div class="carousel">
+    <div class="item a">
+        <a href="projects.html">
+        <img src="tree.jpg" width=100% height=100%>
+        </a>
+    </div>
+    <div class="item b">B</div>
+    <div class="item c">C</div>
+    <div class="item d">D</div>
+    <div class="item e">E</div>
+    <div class="item f">F</div>
+  </div>
+</div>
+<div class="next">Next</div>
+<div class="prev">Prev</div>
     </div>
     
     <div class="col-xs-2 sidenav">
