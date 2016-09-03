@@ -16,8 +16,15 @@
       border-radius: 0;
     }
     
-  .dropdown-toggle:active, .open .dropdown-toggle {background:#FFF !important; color:#550 !important;}
-
+.nav.nav-tabs > li.dropdown.active.open > a, 
+.nav.nav-tabs > li.dropdown.active.open > ul.dropdown-menu a:hover,
+.nav.nav-tabs > li.dropdown.open > a, 
+.nav.nav-tabs > li.dropdown.open > ul.dropdown-menu a:hover
+{
+  color: #fff;
+  background-color: #b91773;
+  border-color: #fff;
+}
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
     
