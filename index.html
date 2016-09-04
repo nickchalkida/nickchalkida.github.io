@@ -213,24 +213,68 @@
   <p>Designed by Nikolaos L. Kechris</p>
 </footer>
 
-  <script type="text/javascript">
+<script type="text/javascript">
 	var carousel = $(".carousel"),
     currdeg  = 0;
-$(".next").on("click", { d: "n" }, rotate);
-$(".prev").on("click", { d: "p" }, rotate);
-function rotate(e){
-  if(e.data.d=="n"){
-    currdeg = currdeg - 60;
-  }
-  if(e.data.d=="p"){
-    currdeg = currdeg + 60;
-  }
-  carousel.css({
+    var X=0,Y=0;
+    var SX, SY, EX, EY;
+    
+    document.addEventListener('mousedown',mouseDown,false);
+    document.addEventListener('mousemove',mouseMove,false);
+    document.addEventListener('mouseup',mouseUp,false);
+    
+    $(".next").on("click", { d: "n" }, rotate);
+    $(".prev").on("click", { d: "p" }, rotate);
+
+function mouseDown() {
+    //alert("Down Coordinates: (" + X + "," + Y + ")");
+    SX = X; SY = Y;
+}
+
+function mouseUp() {
+    //alert("Up Coordinates: (" + X + "," + Y + ")");
+    EX = X; EY = Y;
+    
+    if ((EX-SX<=100) && (EX-SX>=-100))
+        return;
+    
+    if (EX>SX) {
+        currdeg = currdeg + 60;
+    } else {
+        currdeg = currdeg - 60;
+    }
+    
+    carousel.css({
     "-webkit-transform": "rotateY("+currdeg+"deg)",
     "-moz-transform": "rotateY("+currdeg+"deg)",
     "-o-transform": "rotateY("+currdeg+"deg)",
     "transform": "rotateY("+currdeg+"deg)"
-  });
+    });
+}
+
+function mouseMove(e) {
+	var x = e.clientX;
+    var y = e.clientY;
+    X=x; Y=y;
+}
+
+function rotate(e){
+    if(e.data.d=="n"){
+        currdeg = currdeg + 60;
+    }
+    if(e.data.d=="p"){
+        currdeg = currdeg - 60;
+    }
+    
+    X=0; Y=0;
+    //alert("Rotate");
+  
+    carousel.css({
+    "-webkit-transform": "rotateY("+currdeg+"deg)",
+    "-moz-transform": "rotateY("+currdeg+"deg)",
+    "-o-transform": "rotateY("+currdeg+"deg)",
+    "transform": "rotateY("+currdeg+"deg)"
+    });
 }
 </script>
 
