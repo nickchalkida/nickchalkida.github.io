@@ -1,0 +1,430 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="HTML5, Geometry">
+<meta name="author" content="Nikolaos L. Kechris">
+
+<title>Στοιχεία Ευκλείδου</title>
+<script type="text/javascript" src="ET01.js"></script>
+
+<style>
+@font-face { font-family: Chalkis; src: url("Chalkis.ttf"); } 
+
+body {
+    font-family: "Chalkis Re";
+    /* font-family: Dejavu Sans; */  
+    font-size:16pt;
+    background-color: #ffffee;
+}
+
+header {
+	text-align:center;
+	margin-top:0pt;	
+    padding: 1pt;
+    color: #ffe6b3;
+    background-color: #1a1100;
+    font-family: "Chalkis Re";
+	font-size: 16px;
+}
+
+footer {
+	text-align:center;	
+    padding: 5pt;
+    color: #ffe6b3;
+    background-color: #1a1100;
+    font-family: "Chalkis Re";
+	font-size: 14pt;
+}
+
+button{
+    height:25pt;
+    background-color: #cccccc;
+    border: 2px solid;
+    border-radius: 25px;
+}
+
+img {
+    float: right;
+    margin: 0 0 10px 10px;
+}
+
+iframe{
+    float: right;
+    margin: 0 0 10px 10px;
+}
+
+.nav_container{
+    background-color: #664400;
+}
+
+#content_container{
+    min-height:600pt;
+    margin-top: 0pt;
+    margin-right: 50pt;
+    margin-left: 50pt;
+    margin-bottom: 50pt;
+}
+#protasiselector{
+    width:100pt;
+    min-width:100pt;
+}
+
+
+.divider{
+    width:50pt;
+    height:auto;
+    display:inline-block;
+}
+
+nav{
+    display: inline;
+}
+
+nav ul {
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 5px;
+}
+
+p{
+	text-align:justify;	
+	font-family:"Chalkis Re";
+	font-size:16pt;
+    line-height:18pt;
+    margin:0pt;
+}
+
+b{
+    font-family: Lato;
+    font-size: 0.9em;
+}
+
+h4{
+	text-align:center;	
+}
+
+</style>
+
+<script type="text/javascript">
+    var objElements = {
+        1  : 'Βιβλίο 1', 2  : 'Βιβλίο 2' , 3  : 'Βιβλίο 3', 4  : 'Βιβλίο 4',
+        5  : 'Βιβλίο 5', 6  : 'Βιβλίο 6' , 7  : 'Βιβλίο 7', 8  : 'Βιβλίο 8',
+        9  : 'Βιβλίο 9', 10 : 'Βιβλίο 10', 11 : 'Βιβλίο 11',12 : 'Βιβλίο 12',
+        13 : 'Βιβλίο 13'
+    };
+    
+    var curbook=0;   
+    var curprotasi=-1;
+    var bselect=""; 
+    var pselect="";
+    
+    var B01ARR = [];
+    var B02ARR = [];
+    var B03ARR = [];
+    var B04ARR = [];
+    var B05ARR = [];
+    var B06ARR = [];
+    var B07ARR = [];
+    var B08ARR = [];
+    var B09ARR = [];
+    var B10ARR = [];
+    var B11ARR = [];
+    var B12ARR = [];
+    var B13ARR = [];
+    
+    /* valid for 1 - 999 */
+    function N2G(num) {
+        var ms = ["α","β","γ","δ","ε","ς","ζ","η","θ"];
+        var ds = ["ι","κ","λ","μ","ν","ξ","ο","π","ϟ"];
+        var es = ["ρ","σ","τ","υ","φ","χ","ψ","ω","ϡ"];
+        
+        var retstr="";
+        var nstr = num.toString();     
+        var arr = nstr.split("");        
+        var arDigit="", grDigit="", SL="";
+        for (var i = 0; i < arr.length; i++) {
+            arDigit = arr[arr.length-1-i];            
+            
+            if      (i % 3 == 1) {SL=ds;}
+            else if (i % 3 == 2) {SL=es;}
+            else                 {SL=ms;}
+            
+            if (arDigit >= 1)
+            retstr = SL[arDigit-1] + retstr;
+            
+        }
+        return retstr;
+    }
+    
+    function G2N(gnumstr) {
+        var retnum = 0;
+        var arr = gnumstr.split("");
+        for (var i = 0; i < arr.length; i++) {
+            switch (arr[i]) {
+            case "ρ": retnum += 100; break;
+            case "σ": retnum += 200; break;
+            case "τ": retnum += 300; break;
+            case "υ": retnum += 400; break;
+            case "φ": retnum += 500; break;
+            case "χ": retnum += 600; break;
+            case "ψ": retnum += 700; break;
+            case "ω": retnum += 800; break;
+            case "ϡ": retnum += 900; break;
+
+            case "ι": retnum += 10 ; break;
+            case "κ": retnum += 20 ; break;
+            case "λ": retnum += 30 ; break;
+            case "μ": retnum += 40 ; break;
+            case "ν": retnum += 50 ; break;
+            case "ξ": retnum += 60 ; break;
+            case "ο": retnum += 70 ; break;
+            case "π": retnum += 80 ; break;
+            case "ϟ": retnum += 90 ; break;
+
+            case "α": retnum += 1  ; break;
+            case "β": retnum += 2  ; break;
+            case "γ": retnum += 3  ; break;
+            case "δ": retnum += 4  ; break;
+            case "ε": retnum += 5  ; break;
+            case "ς": retnum += 6  ; break;
+            case "ζ": retnum += 7  ; break;
+            case "η": retnum += 8  ; break;
+            case "θ": retnum += 9  ; break;
+            default:;
+            }  
+        }
+        return retnum;
+    }
+    
+    function showBookProtasi() {
+        
+        /*alert("showBookProtasi Book: " + bselect.options[bselect.selectedIndex].text + 
+              "\nProtasi: " + pselect.options[pselect.selectedIndex].text +
+              "\n bselect.selectedIndex: " + bselect.selectedIndex + 
+              "\n pselect.selectedIndex: " + pselect.selectedIndex + 
+              "\n curbook: " + curbook + 
+              "\n curprotasi: " + curprotasi
+        );*/
+        
+        if (curbook<1 || curbook>13 || curprotasi<0) {
+            document.getElementById("content_container").innerHTML = "<h3>Υπό κατασκευή!</h3>";
+            return;
+        }
+        
+        var contentstr=""; var linestr=""; var BARR = [];       
+        switch (curbook) {
+            case 1 : BARR = B01ARR; break;
+            case 2 : BARR = B02ARR; break;
+            case 3 : BARR = B03ARR; break;
+            case 4 : BARR = B04ARR; break;
+            case 5 : BARR = B05ARR; break;
+            case 6 : BARR = B06ARR; break;
+            case 7 : BARR = B07ARR; break;
+            case 8 : BARR = B08ARR; break;
+            case 9 : BARR = B09ARR; break;
+            case 10: BARR = B10ARR; break;
+            case 11: BARR = B11ARR; break;
+            case 12: BARR = B12ARR; break;
+            case 13: BARR = B13ARR; break;
+            default:;
+        }
+        var startindex = BARR[curprotasi];
+        var endindex   = BARR[curprotasi+1];
+        
+        /* add to content lines from startindex until next <h4> */
+        linestr = allines[startindex] + "<hr>";
+        contentstr += linestr;
+        linestr = "<p><br></p><b>" + allines[startindex+1] + "</b><p><br></p>";
+        contentstr += linestr;
+        for (var i = startindex+2; i < endindex; i++) {
+            contentstr += allines[i];
+        }
+        linestr = "<p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>";
+        contentstr += linestr;
+ 
+        document.getElementById("content_container").innerHTML = contentstr;
+    }
+    
+        
+    function AddBookProtaseis(book) {
+        pselect.options.length = 0;
+        var option;
+        
+        /*alert("curbook:"+curbook+": curprotasi"+curprotasi);*/
+
+        switch (curbook) {
+        case 1:
+        /*alert("AddBookProtaseis book1");*/
+        option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        option = document.createElement("option"); option.text="Αἰτήματα"; option.value=1;
+        pselect.options[pselect.options.length] = option;
+        option = document.createElement("option"); option.text="Κοιναὶ ἒννοιαι"; option.value=2;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 1; i <= 48; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=2+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+        case 2:
+        option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 1; i <= 14; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+        case 3:
+        option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 1; i <= 37; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+        case 4:
+        option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 1; i <= 16; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+        default:;
+        }
+        curprotasi = pselect.selectedIndex;
+        showBookProtasi();
+    }
+    
+    function InitializeSelectors() {
+        bselect = document.getElementById("bookselector");
+        pselect = document.getElementById("protasiselector");
+
+        /* Initialize header indices */
+        var linestr = ""; var bookcounter = 0; var BARR = []; 
+        for (var i = 0; i < allines.length; i++) {
+            linestr = allines[i];
+            if (linestr.substr(0, 10)=="<h3>Βιβλίο") {
+                BARR.push(i);
+                bookcounter++;
+                switch (bookcounter) {
+                    case 1 : BARR = B01ARR; break;
+                    case 2 : BARR = B02ARR; break;
+                    case 3 : BARR = B03ARR; break;
+                    case 4 : BARR = B04ARR; break;
+                    case 5 : BARR = B05ARR; break;
+                    case 6 : BARR = B06ARR; break;
+                    case 7 : BARR = B07ARR; break;
+                    case 8 : BARR = B08ARR; break;
+                    case 9 : BARR = B09ARR; break;
+                    case 10: BARR = B10ARR; break;
+                    case 11: BARR = B11ARR; break;
+                    case 12: BARR = B12ARR; break;
+                    case 13: BARR = B13ARR; break;
+                    default:;
+                }
+                continue;
+            }
+            if (linestr.substr(0, 4)=="<h4>") {
+                BARR.push(i);
+            }
+        }
+        BARR.push(allines.length-1);
+
+        bselect.options.length = 0;
+        for(index in objElements) {
+            bselect.options[bselect.options.length] = new Option(objElements[index], index);
+        }
+        curbook=1; 
+        AddBookProtaseis(curbook);
+        curprotasi = pselect.selectedIndex;
+         
+    } 
+    
+    function BRight(){
+        curbook++;
+        if (curbook==14)
+            curbook = 1;
+        bselect.selectedIndex = curbook-1;
+        AddBookProtaseis(curbook);
+    } 
+    function BLeft(){
+        curbook--;
+        if (curbook==0)
+            curbook = 13;
+        bselect.selectedIndex = curbook-1;
+        AddBookProtaseis(curbook);
+    } 
+
+    function selectBook() {
+        curbook = bselect.selectedIndex+1;
+        AddBookProtaseis(curbook);
+    } 
+    
+    function PRight(){
+        if (pselect.options.length==0)
+            return;
+        if (pselect.selectedIndex==pselect.options.length-1)
+            pselect.selectedIndex = 0;
+        else
+            pselect.selectedIndex++;
+
+        curprotasi = pselect.selectedIndex;
+        showBookProtasi();
+    } 
+    function PLeft(){
+        if (pselect.options.length==0)
+            return;
+        if (pselect.selectedIndex==0)
+            pselect.selectedIndex = pselect.options.length-1;
+        else
+            pselect.selectedIndex--;
+
+        curprotasi = pselect.selectedIndex;
+        showBookProtasi();
+    } 
+    function selectProtasi() {
+        /*alert("Text: " + pselect.options[pselect.selectedIndex].text + "\nValue: " + pselect.options[pselect.selectedIndex].value);*/
+        curprotasi = pselect.selectedIndex;
+        showBookProtasi();
+    } 
+    
+</script>
+
+
+</head>
+
+
+<body onload="InitializeSelectors()">
+<div>
+<header>
+<h1>Στοιχεία Ευκλείδου</h1>
+</header>
+</div>
+
+<div class="nav_container">
+<nav>
+<button type="button" onclick="BLeft()">&#9664;</button>
+<select id="bookselector" onchange="selectBook()"></select>
+<button type="button" onclick="BRight()">&#9654;</button>
+<div class="divider"></div>
+<button type="button" onclick="PLeft()">&#9664;</button>
+<select id="protasiselector" onchange="selectProtasi()"></select>
+<button type="button" onclick="PRight()">&#9654;</button>
+</nav>
+</div>
+
+
+<div id="content_container"></div>
+
+<footer>
+Αρχαίο κείμενο Ε.Σταμάτη υπό Ν.Κεχρή.
+</footer>
+
+
+</body>
+</html> 
