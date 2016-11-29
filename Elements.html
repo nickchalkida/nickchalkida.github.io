@@ -6,7 +6,7 @@
 <meta name="author" content="Nikolaos L. Kechris">
 
 <title>Στοιχεία Ευκλείδου</title>
-<script type="text/javascript" src="ET12.js"></script>
+<script type="text/javascript" src="ET124.js"></script>
 
 <style>
 @font-face { font-family: Chalkis; src: url("Chalkis.ttf"); } 
@@ -332,7 +332,29 @@ h4{
         pselect.options[pselect.options.length] = option;
         }
         break;
-        default:;
+        case 10:
+        break;
+        case 11:
+        option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 1; i <= 39; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+        case 12:
+        for (var i = 1; i <= 18; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+        case 13:
+        for (var i = 1; i <= 18; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        break;
+	default:;
         }
         curprotasi = pselect.selectedIndex;
         showBookProtasi();
