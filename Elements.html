@@ -6,7 +6,7 @@
 <meta name="author" content="Nikolaos L. Kechris">
 
 <title>Στοιχεία Ευκλείδου</title>
-<script type="text/javascript" src="ET124.js"></script>
+<script type="text/javascript" src="ET1234.js"></script>
 
 <style>
 @font-face { font-family: Chalkis; src: url("Chalkis.ttf"); } 
@@ -333,6 +333,24 @@ h4{
         }
         break;
         case 10:
+        option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 1; i <= 47; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        option = document.createElement("option"); option.text="Ὅροι δεύτεροι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 48; i <= 84; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
+        option = document.createElement("option"); option.text="Ὅροι τρίτοι"; option.value=0;
+        pselect.options[pselect.options.length] = option;
+        for (var i = 85; i <= 115; i++) {
+        option = document.createElement("option"); option.text="Πρόταση "+N2G(i); option.value=0+i;
+        pselect.options[pselect.options.length] = option;
+        }
         break;
         case 11:
         option = document.createElement("option"); option.text="Ὅροι"; option.value=0;
@@ -354,7 +372,7 @@ h4{
         pselect.options[pselect.options.length] = option;
         }
         break;
-	default:;
+        default:;
         }
         curprotasi = pselect.selectedIndex;
         showBookProtasi();
