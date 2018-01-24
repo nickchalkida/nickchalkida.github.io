@@ -1,324 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Nikolaos Kechris</title>
+    <title>three.js webgl - shaders - ocean</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            color: #000;
+            font-family: Monospace;
+            font-size: 13px;
+            margin: 0px;
+            overflow: hidden;
+        }
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        #SiteMap {
+            position: absolute;
+            top: 100px;
+            left: 50px;
+            width: 250px;
+            text-align: left;
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
+        }
 
-  gtag('config', 'GA_TRACKING_ID');
-</script>
-	
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    .dropdown-menu { background-color: #aaaaaa}
-    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-color: #444444}
-    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-image: none; }
-    .dropdown-menu>li>a { color: #333333}
-    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { color: #FFFFFF}
+        a:link {
+            padding-left: 20px;
+            float: left;
+            width: 100%;
+            height: 25px;
+            margin: 5px;
+            font-size: 20px;
+            border: 3px solid #73AD21;
+            text-decoration: none;
+        }
 
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    body {
-      background-color: #888888;
-    }
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #888888;
-      height: 100%;
-    }
-    
-    .panel{
-      background-color: #888888;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    
-.container {
-  margin: 0 auto;
-  width: 250px;
-  height: 200px;
-  position: relative;
-  perspective: 1000px;
-  background-color: #333333;
-}
-.carousel {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transition: transform 1s;
-  background-color: #aaaaaa;
-}
-.item {
-  display: block;
-  position: absolute;
-  background: #000;
-  width: 250px;
-  height: 200px;
-  line-height: 20px;
-  font-size: 16px;
-  text-align: center;
-  color: #555;
-  opacity: 0.95;
-  border-radius: 10px;
-}
-.a {
-  transform: rotateY(0deg) translateZ(250px);
-  background: #5f261b;
-}
-.b {
-  transform: rotateY(60deg) translateZ(250px);
-  background: #e6e6e6;
-}
-.c {
-  transform: rotateY(120deg) translateZ(250px);
-  background: #cce0ff;
-}
-.d {
-  transform: rotateY(180deg) translateZ(250px);
-  background: #00cc00;
-}
-.e {
-  transform: rotateY(240deg) translateZ(250px);
-  background: #d7c9ae;
-} 
-.f {
-  transform: rotateY(300deg) translateZ(250px);
-  background: #000099;
-}
-.next, .prev {
-  color: #444;
-  position: absolute;
-  top: 100px;
-  padding: 1em 2em;
-  cursor: pointer;
-  background: #CCC;
-  border-radius: 5px;
-  border-top: 1px solid #FFF;
-  box-shadow: 0 5px 0 #999;
-  transition: box-shadow 0.1s, top 0.1s;
-}
-.next:hover, .prev:hover { color: #000; }
-.next:active, .prev:active {
-  top: 104px;
-  box-shadow: 0 1px 0 #999;
-}
-.next { right: 2em;}
-.prev { left:  2em;}
-
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-    
-  </style>
-  
-  
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-45654546-3', 'auto');
-  ga('send', 'pageview');
-
- </script>
- 
+        a:hover {
+            background-color: yellow;
+        }
+    </style>
 </head>
-
-
 
 <body>
 
+    <div id="container"></div>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="index.html">Home</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="projects.html">WebGL</a></li>
-          <li><a href="projects_tex.html">TeX</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-  
-<div class="container-fluid">    
-  <div class="row row-eq-height">
-    
-    <div class="col-xs-2 sidenav">
-      <div class="well" style="background-color:#558855">
-        <img src="images/math01.gif" class="img-rounded" alt="Cinque Terre" width=100% height=100%>     
-        <p>Hexagon waves</p>
-      </div>
-      <div class="well" style="background-color:#FFD1C4">
-        <p>Exercise Math at <a href="http://math.stackexchange.com/">StackExchange</a></p>
-      </div>
-      <div class="well" style="background-color:#64CBED">
-        <p>Greek Math at <a href="http://www.mathematica.gr/">mathematica.gr</a></p>
-      </div>
+    <div id="SiteMap">
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects.html" target="_blank" rel="noopener">Programming</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects_tex.html" target="_blank" rel="noopener">Tex Projects</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/profile.html" target="_blank" rel="noopener">Profile</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/contact.html" target="_blank" rel="noopener">Contact Info</a>
+        </div>
     </div>
-    
-    <div class="col-xs-8 panel">
-    	<br><br><br><br><br><br><br><br><br><br><br><br>
-<div class="container">
-  <div class="carousel">
-    <div class="item a">
-        <a href="profile.html">
-            <img src="images/klee01.jpg" width=100% height=90%><p>Profile</p>
-        </a>
-    </div>
-    <div class="item b">
-        <a href="contact.html">
-            <img src="images/Contact.jpg" width=100% height=90%><p>Contact</p>
-        </a>
-    </div>
-    <div class="item c">
-        <a href="index.html">
-            <img src="images/Home.jpg" width=100% height=90%><p>Home</p>
-        </a>
-    </div>
-    <div class="item d">
-        <a href="index.html">
-            <img src="images/web.gif" width=100% height=90%><p>Home</p>
-        </a>
-    </div>
-    <div class="item e">
-        <a href="projects_tex.html">
-            <img src="images/pithagorian.png" width=100% height=90%><p>Projects TeX</p>
-        </a>
-    </div>
-    <div class="item f">
-        <a href="projects.html">
-            <img src="images/webgl.gif" width=100% height=90%><p>Projects Web</p>
-        </a>
-    </div>
-  </div>
-</div>
 
-<div class="next">Next</div>
-<div class="prev">Prev</div>
+    <script src="js/three.js"></script>
 
-    </div>
-    
-    <div class="col-xs-2 sidenav">
-      <div class="well" style="background-color:#888855">
-        <img src="images/6GPNmBN.gif" class="img-rounded" alt="Cinque Terre" width=100% height=100%>     
-        <p>3D Möbius strip</p>
-      </div>
-      <div class="well" style="background-color:#98F855">
-        <img src="images/Loxodrome.gif" class="img-circle" alt="Cinque Terre" width=100% height=100%>    
-        <p>Loxodrome</p>
-      </div>
-      <div class="well">
-        <img src="images/math03.gif" class="img-rounded" alt="Cinque Terre" width=100% height=100%>    
-        <p>Euler approximation</p>
-      </div>
-    </div>
-  </div>
-</div>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/DragControls.js"></script>
+    <script src="js/TrackballControls.js"></script>
 
-<footer class="container-fluid text-center">
-  <p>Designed by Nikolaos L. Kechris</p>
-</footer>
+    <script src="js/Water.js"></script>
+    <script src="js/Detector.js"></script>
 
-<script type="text/javascript">
-	var carousel = $(".carousel"),
-    currdeg  = 0;
-    var X=0,Y=0;
-    var SX, SY, EX, EY;
-    
-    document.addEventListener('mousedown',mouseDown,false);
-    document.addEventListener('mousemove',mouseMove,false);
-    document.addEventListener('mouseup',mouseUp,false);
-    
-    $(".next").on("click", { d: "n" }, rotate);
-    $(".prev").on("click", { d: "p" }, rotate);
+    <script>
+        //if (!Detector.webgl) Detector.addGetWebGLMessage();
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-45654546-3', 'auto');
+        ga('send', 'pageview');
 
-function mouseDown() {
-    //alert("Down Coordinates: (" + X + "," + Y + ")");
-    SX = X; SY = Y;
-}
 
-function mouseUp() {
-    //alert("Up Coordinates: (" + X + "," + Y + ")");
-    EX = X; EY = Y;
-    
-    if ((EX-SX<=100) && (EX-SX>=-100))
-        return;
-    
-    if (EX>SX) {
-        currdeg = currdeg + 60;
-    } else {
-        currdeg = currdeg - 60;
-    }
-    
-    carousel.css({
-    "-webkit-transform": "rotateY("+currdeg+"deg)",
-    "-moz-transform": "rotateY("+currdeg+"deg)",
-    "-o-transform": "rotateY("+currdeg+"deg)",
-    "transform": "rotateY("+currdeg+"deg)"
-    });
-}
+        var container, stats;
+        var camera, scene, renderer
 
-function mouseMove(e) {
-	var x = e.clientX;
-    var y = e.clientY;
-    X=x; Y=y;
-}
+        var light, ambientLight, bulbGeometry, bulbLight, bulbMat;
 
-function rotate(e){
-    if(e.data.d=="n"){
-        currdeg = currdeg + 60;
-    }
-    if(e.data.d=="p"){
-        currdeg = currdeg - 60;
-    }
-    
-    X=0; Y=0;
-    //alert("Rotate");
-  
-    carousel.css({
-    "-webkit-transform": "rotateY("+currdeg+"deg)",
-    "-moz-transform": "rotateY("+currdeg+"deg)",
-    "-o-transform": "rotateY("+currdeg+"deg)",
-    "transform": "rotateY("+currdeg+"deg)"
-    });
-}
-</script>
+        var controls, dragControls;
+        var water, ncube, sphere, cubeMap;
+        var objects = [];
+        var parameters = {
+            oceanSide: 2000,
+            size: 1.0,
+            distortionScale: 3.7,
+            alpha: 1.0
+        };
+        init();
+        animate();
 
+        function init() {
+            container = document.getElementById('container');
+            //
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+            //
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0xaabbbb, 0.001);
+            //
+            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+            camera.position.set(30, 30, 100);
+            //
+            light = new THREE.DirectionalLight(0xffffff, 0.8);
+            light.position.set(-30, 30, 30);
+            light.castShadow = true;
+            light.shadow.camera.top = 45;
+            light.shadow.camera.right = 40;
+            light.shadow.camera.left = light.shadow.camera.bottom = -40;
+            light.shadow.camera.near = 1;
+            light.shadow.camera.far = 200;
+            scene.add(light);
+
+            var bulbGeometry = new THREE.SphereGeometry(0, 16, 8);
+            bulbLight = new THREE.PointLight(0xffee88, 2, 0, 2);
+            /*
+            bulbMat = new THREE.MeshStandardMaterial( {
+            	emissive: 0xffffee,
+            	emissiveIntensity: 1,
+            	color: 0x000000
+            });
+            bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+            */
+            bulbLight.position.set(0, 2, 0);
+            bulbLight.castShadow = true;
+            //bulbLight.visible = false;
+            scene.add(bulbLight);
+
+
+            //
+            setWater();
+            //
+            setSkybox();
+            //
+            var geometry = new THREE.IcosahedronGeometry(20, 2);
+            for (var i = 0, j = geometry.faces.length; i < j; i++) {
+                geometry.faces[i].color.setHex(Math.random() * 0xffffff);
+            }
+            var material = new THREE.MeshPhongMaterial({
+                vertexColors: THREE.FaceColors,
+                shininess: 10,
+                envMap: cubeMap,
+                side: THREE.DoubleSide
+            });
+            sphere = new THREE.Mesh(geometry, material);
+            sphere.castShadow = true;
+            scene.add(sphere);
+            objects.push(sphere);
+
+            //
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.maxPolarAngle = Math.PI * 0.495;
+            controls.target.set(0, 10, 0);
+            controls.enablePan = false;
+            controls.minDistance = 40.0;
+            controls.maxDistance = 200.0;
+
+            dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
+            dragControls.addEventListener('dragstart', function(event) {
+                controls.enabled = false;
+            });
+            dragControls.addEventListener('dragend', function(event) {
+                controls.enabled = true;
+            });
+
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+            /*
+                        stats = new Stats();
+                        container.appendChild(stats.dom);
+                        //
+                        gui = new dat.GUI();
+                        gui.add(parameters, 'distortionScale', 0, 8, 0.1);
+                        gui.add(parameters, 'size', 0.1, 10, 0.1);
+                        gui.add(parameters, 'alpha', 0.9, 1, .001);
+                        //
+            			
+            */
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function setWater() {
+            var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
+            water = new THREE.Water(
+                waterGeometry, {
+                    textureWidth: 512,
+                    textureHeight: 512,
+                    waterNormals: new THREE.TextureLoader().load(
+                        //'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskybox/waternormals.jpg', 
+                        'textures/cube/skyboxsun25deg/waternormals.jpg',
+                        function(texture) {
+                            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                        }),
+                    alpha: parameters.alpha,
+                    sunDirection: light.position.clone().normalize(),
+                    sunColor: 0xffffff,
+                    waterColor: 0x001e0f,
+                    distortionScale: parameters.distortionScale,
+                    fog: scene.fog !== undefined
+                }
+            );
+            water.rotation.x = -Math.PI / 2;
+            water.receiveShadow = true;
+
+            scene.add(water);
+        }
+
+        function setSkybox() {
+            var cubeTextureLoader = new THREE.CubeTextureLoader();
+
+            cubeTextureLoader.setPath('textures/cube/skyboxsun25deg/');
+            //cubeMap = cubeTextureLoader.load( [
+            //	'px.jpg', 'nx.jpg',
+            //	'py.jpg', 'ny.jpg',
+            //	'pz.jpg', 'nz.jpg',
+            //] );
+
+            cubeTextureLoader.setCrossOrigin('anonymous');
+            //cubeTextureLoader.setCrossOrigin( '' );
+            //cubeTextureLoader.setPath( 'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskyboxsun25deg/' );
+            cubeMap = cubeTextureLoader.load([
+                'px.jpg',
+                'nx.jpg',
+                'py.jpg',
+                'ny.jpg',
+                'pz.jpg',
+                'nz.jpg',
+            ]);
+
+            var cubeShader = THREE.ShaderLib['cube'];
+            cubeShader.uniforms['tCube'].value = cubeMap;
+            var skyBoxMaterial = new THREE.ShaderMaterial({
+                fragmentShader: cubeShader.fragmentShader,
+                vertexShader: cubeShader.vertexShader,
+                uniforms: cubeShader.uniforms,
+                side: THREE.BackSide
+            });
+            var skyBoxGeometry = new THREE.BoxBufferGeometry(
+                parameters.oceanSide * 5 + 100,
+                parameters.oceanSide * 5 + 100,
+                parameters.oceanSide * 5 + 100);
+            var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+            scene.add(skyBox);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            render();
+        }
+
+        function render() {
+            var time = performance.now() * 0.001;
+
+            bulbLight.position.x = Math.cos(time) * 80;
+            bulbLight.position.y = Math.sin(time) * 80;
+
+            sphere.position.y = Math.sin(time) * 20 + 5;
+            sphere.rotation.x = time * 0.5;
+            sphere.rotation.z = time * 0.51;
+
+            water.material.uniforms.time.value += 1.0 / 60.0;
+            water.material.uniforms.size.value = parameters.size;
+            water.material.uniforms.distortionScale.value = parameters.distortionScale;
+            water.material.uniforms.alpha.value = parameters.alpha;
+            renderer.render(scene, camera);
+        }
+    </script>
 </body>
+
 </html>
+
