@@ -15,12 +15,25 @@
         }
 
         #SiteMap {
-            position: absolute;
+            position: fixed;
             top: 100px;
-            left: 50px;
+            left: 5%;
             width: 250px;
             text-align: left;
-
+        }
+        #QuoteArea {
+			position: fixed;
+            top: 100px;
+			right: 5%;
+			width: 320px;
+			height: 560px;
+			text-align: justify;
+			text-justify: inter-word;
+			padding-right: 20px;
+			border: 3px solid #73AD21;
+		}
+        #QuoteArea:hover {
+            background-color: #ccff99;
         }
 
         a:link {
@@ -37,6 +50,9 @@
         a:hover {
             background-color: yellow;
         }
+		p {
+			padding-left: 20px;
+		}
     </style>
 </head>
 
@@ -64,13 +80,30 @@
             <a href="https://nickchalkida.github.io/contact.html" target="_blank" rel="noopener">Contact Info</a>
         </div>
     </div>
+    
+	<div id="QuoteArea">
+		<p><b>Euclid's Elements - Book X - Definitions</b></p>
+		
+		<ul>	
+		<li>
+		Those magnitudes are said to be commensurable which are measured by the same measure, and those incommensurable which cannot have any common measure.
+		</li>
+		<li>
+		Straight lines are commensurable in square when the squares on them are measured by the same area, and incommensurable in square when the squares on them cannot possibly have any area as a common measure.
+		</li>
+		<li>
+		With these hypotheses, it is proved that there exist straight lines infinite in multitude which are commensurable and incommensurable respectively, some in length only, and others in square also, with an assigned straight line. Let then the assigned straight line be called rational, and those straight lines which are commensurable with it, whether in length and in square, or in square only, rational, but those that are incommensurable with it irrational.
+		</li>
+		<li>
+		And the let the square on the assigned straight line be called rational, and those areas which are commensurable with it rational, but those which are incommensurable with it irrational, and the straight lines which produce them irrational, that is, in case the areas are squares, the sides themselves, but in case they are any other rectilineal figures, the straight lines on which are described squares equal to them.
+		</li>
+		</ul>
+	</div>	
 
     <script src="js/three.js"></script>
-
     <script src="js/OrbitControls.js"></script>
     <script src="js/DragControls.js"></script>
     <script src="js/TrackballControls.js"></script>
-
     <script src="js/Water.js"></script>
     <script src="js/Detector.js"></script>
 
