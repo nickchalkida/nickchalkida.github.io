@@ -135,7 +135,7 @@
 
 
         var container, stats;
-        var camera, scene, renderer
+        var camera, scene, renderer, group;
 
         var light, ambientLight, bulbGeometry, bulbLight, bulbMat;
 
@@ -152,6 +152,29 @@
         animate();
 
         function init() {
+            
+            function addShape( shape, color, x, y, z, rx, ry, rz, s ) {
+				// flat shape
+				var geometry = new THREE.ShapeGeometry( shape );
+				var material = new THREE.MeshBasicMaterial( { color: color, overdraw: 0.5 } );
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.position.set( x, y, z );
+				mesh.rotation.set( rx, ry, rz );
+				mesh.scale.set( s, s, s );
+				group.add( mesh );
+								
+				// line
+				var points = shape.getPoints();
+				var geometry = new THREE.Geometry().setFromPoints( points );
+				var material = new THREE.LineBasicMaterial( { linewidth: 10, color: 0x333333, transparent: true } );
+				var line = new THREE.Line( geometry, material );
+				line.position.set( x, y, z );
+				line.rotation.set( rx, ry, rz );
+				line.scale.set( s, s, s );
+				group.add( line );
+								
+			}
+            
             container = document.getElementById('container');
             //
             renderer = new THREE.WebGLRenderer();
@@ -211,6 +234,66 @@
             sphere.castShadow = true;
             scene.add(sphere);
             objects.push(sphere);
+
+            ////////////////////////////////////
+			group = new THREE.Group();
+			
+			var triangleShape = new THREE.Shape();
+				triangleShape.moveTo(   0,   0 );
+				triangleShape.lineTo( 100,   0 );
+				triangleShape.lineTo(  20,  40 );
+				triangleShape.lineTo(   0,   0 ); // close path			
+			addShape( triangleShape, 0xffee66, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var K1Shape = new THREE.Shape();
+				K1Shape.moveTo(  0,   0 );
+				K1Shape.lineTo( 20,  40 );
+				K1Shape.lineTo(-20,  60 );
+				K1Shape.lineTo(-40,  20 );
+				K1Shape.lineTo(  0,   0 ); // close path			
+			addShape( K1Shape, 0xffeecc, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var K2Shape = new THREE.Shape();
+				K2Shape.moveTo(  20,  40 );
+				K2Shape.lineTo( 100,   0 );
+				K2Shape.lineTo( 140,  80 );
+				K2Shape.lineTo(  60, 120 );
+				K2Shape.lineTo(  20,  40 ); // close path			
+			addShape( K2Shape, 0xeeffcc, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var YPShape = new THREE.Shape();
+				YPShape.moveTo(   0,   0 );
+				YPShape.lineTo(   0,-100 );
+				YPShape.lineTo( 100,-100 );
+				YPShape.lineTo( 100,   0 );
+				YPShape.lineTo(   0,   0 ); // close path			
+			addShape( YPShape, 0xccff66, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var L1Shape = new THREE.Shape();
+				L1Shape.moveTo(  20,  40 );
+				L1Shape.lineTo(   0,-100 );	
+			addShape( L1Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var L2Shape = new THREE.Shape();
+				L2Shape.moveTo(  20,  40 );
+				L2Shape.lineTo( 100,-100 );	
+			addShape( L2Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var L3Shape = new THREE.Shape();
+				L3Shape.moveTo(   0,   0 );
+				L3Shape.lineTo( 140,  80 );	
+			addShape( L3Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1 );
+			
+			var L4Shape = new THREE.Shape();
+				L4Shape.moveTo( 100,   0 );
+				L4Shape.lineTo( -40,  20 );	
+			addShape( L4Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1 );
+			
+			group.position.set( 0, 100, -300 );
+			group.rotation.set( 0, 0, 0 );
+			scene.add( group );
+			objects.push(group);
+			///////////////////////////////////
 
             //
             controls = new THREE.OrbitControls(camera, renderer.domElement);
