@@ -22,19 +22,6 @@
             text-align: left;
         }
 
-        #QuoteArea {
-            position: fixed;
-            display: block;
-            top: 100px;
-            right: 5%;
-            width: 350px;
-            height: 600px;
-            text-align: justify;
-            text-justify: inter-word;
-            padding-right: 20px;
-            border: 3px solid #73AD21;
-        }
-
         @media screen and (max-width: 480px) {
             #QuoteArea {
                 display: none;
@@ -89,25 +76,6 @@
         <div class="PageInfo">
             <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
         </div>
-    </div>
-
-    <div id="QuoteArea">
-        <p><b>Euclid's Elements - Book X - Definitions</b></p>
-
-        <ul>
-            <li>
-                Those magnitudes are said to be commensurable which are measured by the same measure, and those incommensurable which cannot have any common measure.
-            </li>
-            <li>
-                Straight lines are commensurable in square when the squares on them are measured by the same area, and incommensurable in square when the squares on them cannot possibly have any area as a common measure.
-            </li>
-            <li>
-                With these hypotheses, it is proved that there exist straight lines infinite in multitude which are commensurable and incommensurable respectively, some in length only, and others in square also, with an assigned straight line. Let then the assigned straight line be called rational, and those straight lines which are commensurable with it, whether in length and in square, or in square only, rational, but those that are incommensurable with it irrational.
-            </li>
-            <li>
-                And the let the square on the assigned straight line be called rational, and those areas which are commensurable with it rational, but those which are incommensurable with it irrational, and the straight lines which produce them irrational, that is, in case the areas are squares, the sides themselves, but in case they are any other rectilineal figures, the straight lines on which are described squares equal to them.
-            </li>
-        </ul>
     </div>
 
     <script src="js/three.js"></script>
@@ -241,66 +209,6 @@
             sphere.castShadow = true;
             scene.add(sphere);
             objects.push(sphere);
-
-            ////////////////////////////////////
-            group = new THREE.Group();
-
-            var triangleShape = new THREE.Shape();
-            triangleShape.moveTo(0, 0);
-            triangleShape.lineTo(100, 0);
-            triangleShape.lineTo(20, 40);
-            triangleShape.lineTo(0, 0); // close path			
-            addShape(triangleShape, 0xffee66, 0, 0, 0, 0, 0, 0, 1);
-
-            var K1Shape = new THREE.Shape();
-            K1Shape.moveTo(0, 0);
-            K1Shape.lineTo(20, 40);
-            K1Shape.lineTo(-20, 60);
-            K1Shape.lineTo(-40, 20);
-            K1Shape.lineTo(0, 0); // close path			
-            addShape(K1Shape, 0xffeecc, 0, 0, 0, 0, 0, 0, 1);
-
-            var K2Shape = new THREE.Shape();
-            K2Shape.moveTo(20, 40);
-            K2Shape.lineTo(100, 0);
-            K2Shape.lineTo(140, 80);
-            K2Shape.lineTo(60, 120);
-            K2Shape.lineTo(20, 40); // close path			
-            addShape(K2Shape, 0xeeffcc, 0, 0, 0, 0, 0, 0, 1);
-
-            var YPShape = new THREE.Shape();
-            YPShape.moveTo(0, 0);
-            YPShape.lineTo(0, -100);
-            YPShape.lineTo(100, -100);
-            YPShape.lineTo(100, 0);
-            YPShape.lineTo(0, 0); // close path			
-            addShape(YPShape, 0xccff66, 0, 0, 0, 0, 0, 0, 1);
-
-            var L1Shape = new THREE.Shape();
-            L1Shape.moveTo(20, 40);
-            L1Shape.lineTo(0, -100);
-            addShape(L1Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
-
-            var L2Shape = new THREE.Shape();
-            L2Shape.moveTo(20, 40);
-            L2Shape.lineTo(100, -100);
-            addShape(L2Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
-
-            var L3Shape = new THREE.Shape();
-            L3Shape.moveTo(0, 0);
-            L3Shape.lineTo(140, 80);
-            addShape(L3Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
-
-            var L4Shape = new THREE.Shape();
-            L4Shape.moveTo(100, 0);
-            L4Shape.lineTo(-40, 20);
-            addShape(L4Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
-
-            group.position.set(0, 100, -300);
-            group.rotation.set(0, 0, 0);
-            scene.add(group);
-            objects.push(group);
-            ///////////////////////////////////
 
             //
             controls = new THREE.OrbitControls(camera, renderer.domElement);
