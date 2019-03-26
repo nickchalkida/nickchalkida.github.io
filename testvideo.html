@@ -51,9 +51,23 @@
             padding-left: 20px;
         }
     </style>
+	<script>
+var buttons = document.getElementsByTagName("button");
+
+		function onButtonClick(event) {
+			alert(event.target.id);
+		}
+
+	function onbodyloadFunction() {
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", onButtonClick, false);
+}
+
+		}
+	</script>
 </head>
 
-<body>
+<body onload="onbodyloadFunction()>
 
     <div id="container"></div>
 
