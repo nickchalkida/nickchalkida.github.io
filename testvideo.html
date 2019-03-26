@@ -66,6 +66,10 @@ var buttons = document.getElementsByTagName("button");
 	function onbodyloadFunction() {
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", onButtonClick, false);
+	
+	        init();
+        animate();
+
 }
 
 		}
@@ -119,8 +123,6 @@ for (let i = 0; i < buttons.length; i++) {
             distortionScale: 3.7,
             alpha: 1.0
         };
-        init();
-        animate();
 
 var buttons = document.getElementsByTagName("button");
 		function onButtonClick(event) {
