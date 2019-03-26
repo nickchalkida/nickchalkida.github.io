@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>three.js webgl - shaders - ocean</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            color: #000;
+            font-family: Monospace;
+            font-size: 13px;
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        #SiteMap {
+            position: fixed;
+            top: 100px;
+            left: 5%;
+            width: 250px;
+            text-align: left;
+        }
+
+        #QuoteArea {
+            position: fixed;
+            display: block;
+            top: 100px;
+            right: 5%;
+            width: 350px;
+            height: 600px;
+            text-align: justify;
+            text-justify: inter-word;
+            padding-right: 20px;
+            border: 3px solid #73AD21;
+        }
+
+        @media screen and (max-width: 480px) {
+            #QuoteArea {
+                display: none;
+            }
+        }
+
+        #QuoteArea:hover {
+            background-color: #ccff99;
+        }
+
+        a:link {
+            padding-left: 20px;
+            float: left;
+            width: 100%;
+            height: 25px;
+            margin: 5px;
+            font-size: 20px;
+            border: 3px solid #73AD21;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background-color: yellow;
+        }
+
+        p {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container"></div>
+
+    <div id="SiteMap">
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects.html" target="_self" rel="noopener">Programming</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects_tex.html" target="_self" rel="noopener">Tex Projects</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/Geometria/Geometria.html" target="_self" rel="noopener">Geometria</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/profile.html" target="_self" rel="noopener">Profile</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
+        </div>
+    </div>
+
+    <div id="QuoteArea">
+        <p><b>Euclid's Elements - Book X - Definitions</b></p>
+
+        <ul>
+            <li>
+                Those magnitudes are said to be commensurable which are measured by the same measure, and those incommensurable which cannot have any common measure.
+            </li>
+            <li>
+                Straight lines are commensurable in square when the squares on them are measured by the same area, and incommensurable in square when the squares on them cannot possibly have any area as a common measure.
+            </li>
+            <li>
+                With these hypotheses, it is proved that there exist straight lines infinite in multitude which are commensurable and incommensurable respectively, some in length only, and others in square also, with an assigned straight line. Let then the assigned straight line be called rational, and those straight lines which are commensurable with it, whether in length and in square, or in square only, rational, but those that are incommensurable with it irrational.
+            </li>
+            <li>
+                And the let the square on the assigned straight line be called rational, and those areas which are commensurable with it rational, but those which are incommensurable with it irrational, and the straight lines which produce them irrational, that is, in case the areas are squares, the sides themselves, but in case they are any other rectilineal figures, the straight lines on which are described squares equal to them.
+            </li>
+        </ul>
+    </div>
+
+    <script src="js/three.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/DragControls.js"></script>
+    <script src="js/TrackballControls.js"></script>
+    <script src="js/Water.js"></script>
+    <script src="js/Detector.js"></script>
+
+    <script>
+        //if (!Detector.webgl) Detector.addGetWebGLMessage();
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-45654546-3', 'auto');
+        ga('send', 'pageview');
+
+
+        var container, stats;
+        var camera, scene, renderer, group;
+
+        var light, ambientLight, bulbGeometry, bulbLight, bulbMat;
+
+        var controls, dragControls;
+        var water, ncube, sphere, cubeMap;
+        var objects = [];
+        var parameters = {
+            oceanSide: 2000,
+            size: 1.0,
+            distortionScale: 3.7,
+            alpha: 1.0
+        };
+        init();
+        animate();
+
+        function init() {
+
+            function addShape(shape, color, x, y, z, rx, ry, rz, s) {
+                // flat shape
+                var geometry = new THREE.ShapeGeometry(shape);
+                var material = new THREE.MeshBasicMaterial({
+                    color: color,
+                    overdraw: 0.5
+                });
+                var mesh = new THREE.Mesh(geometry, material);
+                mesh.position.set(x, y, z);
+                mesh.rotation.set(rx, ry, rz);
+                mesh.scale.set(s, s, s);
+                group.add(mesh);
+
+                // line
+                var points = shape.getPoints();
+                var geometry = new THREE.Geometry().setFromPoints(points);
+                var material = new THREE.LineBasicMaterial({
+                    linewidth: 1,
+                    color: 0x333333,
+                    transparent: true
+                });
+                var line = new THREE.Line(geometry, material);
+                line.position.set(x, y, z);
+                line.rotation.set(rx, ry, rz);
+                line.scale.set(s, s, s);
+                group.add(line);
+
+            }
+
+            container = document.getElementById('container');
+            //
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+            //
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0xaabbbb, 0.001);
+            //
+            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+            camera.position.set(30, 5, 100);
+            //
+            light = new THREE.DirectionalLight(0xffffff, 0.8);
+            light.position.set(-30, 30, 30);
+            light.castShadow = true;
+            light.shadow.camera.top = 45;
+            light.shadow.camera.right = 40;
+            light.shadow.camera.left = light.shadow.camera.bottom = -40;
+            light.shadow.camera.near = 1;
+            light.shadow.camera.far = 200;
+            scene.add(light);
+
+            var bulbGeometry = new THREE.SphereGeometry(0, 16, 8);
+            bulbLight = new THREE.PointLight(0xffee88, 2, 0, 2);
+            /*
+            bulbMat = new THREE.MeshStandardMaterial( {
+            	emissive: 0xffffee,
+            	emissiveIntensity: 1,
+            	color: 0x000000
+            });
+            bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+            */
+            bulbLight.position.set(0, 2, 0);
+            bulbLight.castShadow = true;
+            //bulbLight.visible = false;
+            scene.add(bulbLight);
+
+
+            //
+            setWater();
+            //
+            setSkybox();
+            //
+            var geometry = new THREE.IcosahedronGeometry(20, 2);
+            for (var i = 0, j = geometry.faces.length; i < j; i++) {
+                geometry.faces[i].color.setHex(Math.random() * 0xffffff);
+            }
+            var material = new THREE.MeshPhongMaterial({
+                vertexColors: THREE.FaceColors,
+                shininess: 10,
+                envMap: cubeMap,
+                side: THREE.DoubleSide
+            });
+            sphere = new THREE.Mesh(geometry, material);
+            sphere.castShadow = true;
+            scene.add(sphere);
+            objects.push(sphere);
+
+            ////////////////////////////////////
+            group = new THREE.Group();
+
+            var triangleShape = new THREE.Shape();
+            triangleShape.moveTo(0, 0);
+            triangleShape.lineTo(100, 0);
+            triangleShape.lineTo(20, 40);
+            triangleShape.lineTo(0, 0); // close path			
+            addShape(triangleShape, 0xffee66, 0, 0, 0, 0, 0, 0, 1);
+
+            var K1Shape = new THREE.Shape();
+            K1Shape.moveTo(0, 0);
+            K1Shape.lineTo(20, 40);
+            K1Shape.lineTo(-20, 60);
+            K1Shape.lineTo(-40, 20);
+            K1Shape.lineTo(0, 0); // close path			
+            addShape(K1Shape, 0xffeecc, 0, 0, 0, 0, 0, 0, 1);
+
+            var K2Shape = new THREE.Shape();
+            K2Shape.moveTo(20, 40);
+            K2Shape.lineTo(100, 0);
+            K2Shape.lineTo(140, 80);
+            K2Shape.lineTo(60, 120);
+            K2Shape.lineTo(20, 40); // close path			
+            addShape(K2Shape, 0xeeffcc, 0, 0, 0, 0, 0, 0, 1);
+
+            var YPShape = new THREE.Shape();
+            YPShape.moveTo(0, 0);
+            YPShape.lineTo(0, -100);
+            YPShape.lineTo(100, -100);
+            YPShape.lineTo(100, 0);
+            YPShape.lineTo(0, 0); // close path			
+            addShape(YPShape, 0xccff66, 0, 0, 0, 0, 0, 0, 1);
+
+            var L1Shape = new THREE.Shape();
+            L1Shape.moveTo(20, 40);
+            L1Shape.lineTo(0, -100);
+            addShape(L1Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
+
+            var L2Shape = new THREE.Shape();
+            L2Shape.moveTo(20, 40);
+            L2Shape.lineTo(100, -100);
+            addShape(L2Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
+
+            var L3Shape = new THREE.Shape();
+            L3Shape.moveTo(0, 0);
+            L3Shape.lineTo(140, 80);
+            addShape(L3Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
+
+            var L4Shape = new THREE.Shape();
+            L4Shape.moveTo(100, 0);
+            L4Shape.lineTo(-40, 20);
+            addShape(L4Shape, 0x000000, 0, 0, 0, 0, 0, 0, 1);
+
+            group.position.set(0, 100, -300);
+            group.rotation.set(0, 0, 0);
+            scene.add(group);
+            objects.push(group);
+            ///////////////////////////////////
+
+            //
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.maxPolarAngle = Math.PI * 0.495;
+            controls.target.set(0, 10, 0);
+            controls.enablePan = false;
+            controls.minDistance = 40.0;
+            controls.maxDistance = 200.0;
+
+            dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
+            dragControls.addEventListener('dragstart', function(event) {
+                controls.enabled = false;
+            });
+            dragControls.addEventListener('dragend', function(event) {
+                controls.enabled = true;
+            });
+
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+            /*
+                        stats = new Stats();
+                        container.appendChild(stats.dom);
+                        //
+                        gui = new dat.GUI();
+                        gui.add(parameters, 'distortionScale', 0, 8, 0.1);
+                        gui.add(parameters, 'size', 0.1, 10, 0.1);
+                        gui.add(parameters, 'alpha', 0.9, 1, .001);
+                        //
+            			
+            */
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function setWater() {
+            var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
+            water = new THREE.Water(
+                waterGeometry, {
+                    textureWidth: 512,
+                    textureHeight: 512,
+                    waterNormals: new THREE.TextureLoader().load(
+                        //'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskybox/waternormals.jpg', 
+                        'textures/cube/skyboxsun25deg/waternormals.jpg',
+                        function(texture) {
+                            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                        }),
+                    alpha: parameters.alpha,
+                    sunDirection: light.position.clone().normalize(),
+                    sunColor: 0xffffff,
+                    waterColor: 0x001e0f,
+                    distortionScale: parameters.distortionScale,
+                    fog: scene.fog !== undefined
+                }
+            );
+            water.rotation.x = -Math.PI / 2;
+            water.receiveShadow = true;
+
+            scene.add(water);
+        }
+
+        function setSkybox() {
+            var cubeTextureLoader = new THREE.CubeTextureLoader();
+
+            cubeTextureLoader.setPath('textures/cube/skyboxsun25deg/');
+            //cubeMap = cubeTextureLoader.load( [
+            //	'px.jpg', 'nx.jpg',
+            //	'py.jpg', 'ny.jpg',
+            //	'pz.jpg', 'nz.jpg',
+            //] );
+
+            cubeTextureLoader.setCrossOrigin('anonymous');
+            //cubeTextureLoader.setCrossOrigin( '' );
+            //cubeTextureLoader.setPath( 'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskyboxsun25deg/' );
+            cubeMap = cubeTextureLoader.load([
+                'px.jpg',
+                'nx.jpg',
+                'py.jpg',
+                'ny.jpg',
+                'pz.jpg',
+                'nz.jpg',
+            ]);
+
+            var cubeShader = THREE.ShaderLib['cube'];
+            cubeShader.uniforms['tCube'].value = cubeMap;
+            var skyBoxMaterial = new THREE.ShaderMaterial({
+                fragmentShader: cubeShader.fragmentShader,
+                vertexShader: cubeShader.vertexShader,
+                uniforms: cubeShader.uniforms,
+                side: THREE.BackSide
+            });
+            var skyBoxGeometry = new THREE.BoxBufferGeometry(
+                parameters.oceanSide * 5 + 100,
+                parameters.oceanSide * 5 + 100,
+                parameters.oceanSide * 5 + 100);
+            var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+            scene.add(skyBox);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            render();
+        }
+
+        function render() {
+            var time = performance.now() * 0.001;
+
+            bulbLight.position.x = Math.cos(time) * 80;
+            bulbLight.position.y = Math.sin(time) * 80;
+
+            sphere.position.y = Math.sin(time) * 20 + 5;
+            sphere.rotation.x = time * 0.5;
+            sphere.rotation.z = time * 0.51;
+
+            water.material.uniforms.time.value += 1.0 / 60.0;
+            water.material.uniforms.size.value = parameters.size;
+            water.material.uniforms.distortionScale.value = parameters.distortionScale;
+            water.material.uniforms.alpha.value = parameters.alpha;
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+
+</html>
