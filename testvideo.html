@@ -8,27 +8,23 @@
     <style>
 	
 /******************************************************************************/
-
 /* STYLE FOR BUTTONS */
-
 .vidbutton{
 	/* background styles */
 	position: relative;
-	display: block;
-	padding: 5px 5px;
-	padding-left: 20px;
-	border:2px;
-	height:10px;
-	width:100px;
-	margin:10px;
-
+	display: inline-block;
+	padding: 15px 25px;
+	border:20px;
+	height:25px;
+	width:230px;
 	background-color: green; /*for compatibility with older browsers*/
-	background: linear-gradient(rgb(140,105,30), rgb(100,250,50));
-
+	
+	 background-image: linear-gradient(green,lightgreen);
+	/* background-image: linear-gradient(rgb(140,105,30), rgb(100,250,50));*/
 	/* text styles */
 	text-decoration: none;
 	color: #fff;
-	font-size: 14px;
+	font-size: 24px;
 	font-family: Arial;
 	/*font-family: sans-serif;*/
 	font-weight: 100;
@@ -37,7 +33,6 @@
 	box-shadow: 0px 1px 4px -2px #333;
 	text-shadow: 0px -1px #333;
 }
-
 .vidbutton:after{
 	content: '';
 	position: absolute;
@@ -47,15 +42,15 @@
 	height: 50%;
 	
 	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+	/*background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));*/
 	border-radius: 10px;
 }
-
 .vidbutton:hover{
-	background-image: linear-gradient(green,lightgreen);
+	/*background: linear-gradient(#073,#0fa);*/
+	/*background: linear-gradient(green,lightgreen);*/
+	background: linear-gradient(rgb(140,105,30), rgb(100,250,50));
 }
-
 /******************************************************************************/
-
         body {
             color: #000;
             font-family: Monospace;
@@ -68,11 +63,12 @@
             position: fixed;
             top: 100px;
             left: 5%;
-            width: 140px;
+            width: 250px;
             text-align: left;
-            padding: 20px;
+            padding: 50px;
+			border:20px;
             display: block;
-			/*background-color: green;*/
+			background-color: green;
         }
         
         @media screen and (max-width: 480px) {
@@ -202,9 +198,7 @@
     <script>
         var container, stats;
         var camera, scene, renderer, group;
-
         var light, ambientLight, bulbGeometry, bulbLight, bulbMat;
-
         var controls, dragControls;
         var water, ncube, sphere, cubeMap;
         var objects = [];
@@ -214,20 +208,15 @@
             distortionScale: 3.7,
             alpha: 1.0
         };
-
         var buttons = document.getElementsByClassName("vidbutton");
         video = document.getElementById('video');
-
         var video, texture, material, mesh;
         var videoplane;
-
         init();
         animate();
         video.play();
-
         function onButtonClick(event) {
             //alert(event.target.id);
-
             if (event.target.id == "health") {
                 video.play();
             } else if (event.target.id == "fire") {
@@ -238,7 +227,6 @@
                 videoplane.position.x += 20;
             }
         }
-
         function setWater() {
             var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
             water = new THREE.Water(
@@ -261,20 +249,16 @@
             );
             water.rotation.x = -Math.PI / 2;
             water.receiveShadow = true;
-
             scene.add(water);
         }
-
         function setSkybox() {
             var cubeTextureLoader = new THREE.CubeTextureLoader();
-
             cubeTextureLoader.setPath('textures/cube/skyboxsun25deg/');
             //cubeMap = cubeTextureLoader.load( [
             //	'px.jpg', 'nx.jpg',
             //	'py.jpg', 'ny.jpg',
             //	'pz.jpg', 'nz.jpg',
             //] );
-
             cubeTextureLoader.setCrossOrigin('anonymous');
             //cubeTextureLoader.setCrossOrigin( '' );
             //cubeTextureLoader.setPath( 'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskyboxsun25deg/' );
@@ -286,7 +270,6 @@
                 'pz.jpg',
                 'nz.jpg',
             ]);
-
             var cubeShader = THREE.ShaderLib['cube'];
             cubeShader.uniforms['tCube'].value = cubeMap;
             var skyBoxMaterial = new THREE.ShaderMaterial({
@@ -302,9 +285,7 @@
             var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
             scene.add(skyBox);
         }
-
         function init() {
-
             function addShape(shape, color, x, y, z, rx, ry, rz, s) {
                 // flat shape
                 var geometry = new THREE.ShapeGeometry(shape);
@@ -317,7 +298,6 @@
                 mesh.rotation.set(rx, ry, rz);
                 mesh.scale.set(s, s, s);
                 group.add(mesh);
-
                 // line
                 var points = shape.getPoints();
                 var geometry = new THREE.Geometry().setFromPoints(points);
@@ -331,9 +311,7 @@
                 line.rotation.set(rx, ry, rz);
                 line.scale.set(s, s, s);
                 group.add(line);
-
             }
-
             container = document.getElementById('container');
             //
             renderer = new THREE.WebGLRenderer();
@@ -357,7 +335,6 @@
             light.shadow.camera.near = 1;
             light.shadow.camera.far = 200;
             scene.add(light);
-
             var bulbGeometry = new THREE.SphereGeometry(0, 16, 8);
             bulbLight = new THREE.PointLight(0xffee88, 2, 0, 2);
             /*
@@ -372,7 +349,6 @@
             bulbLight.castShadow = true;
             //bulbLight.visible = false;
             scene.add(bulbLight);
-
             //
             setWater();
             //
@@ -385,7 +361,6 @@
             });
             videoplane = new THREE.Mesh(videogeometry, videomaterial);
             scene.add(videoplane);
-
             var geometry = new THREE.IcosahedronGeometry(20, 2);
             for (var i = 0, j = geometry.faces.length; i < j; i++) {
                 geometry.faces[i].color.setHex(Math.random() * 0xffffff);
@@ -400,7 +375,6 @@
             sphere.castShadow = true;
             scene.add(sphere);
             objects.push(sphere);
-
             //
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.maxPolarAngle = Math.PI * 0.495;
@@ -408,7 +382,6 @@
             controls.enablePan = false;
             controls.minDistance = 40.0;
             controls.maxDistance = 200.0;
-
             dragControls = new THREE.DragControls(objects, camera, renderer.domElement);
             dragControls.addEventListener('dragstart', function(event) {
                 controls.enabled = false;
@@ -416,9 +389,7 @@
             dragControls.addEventListener('dragend', function(event) {
                 controls.enabled = true;
             });
-
             camera.lookAt(new THREE.Vector3(0, 0, 0));
-
             /*
                         stats = new Stats();
                         container.appendChild(stats.dom);
@@ -428,37 +399,28 @@
                         gui.add(parameters, 'size', 0.1, 10, 0.1);
                         gui.add(parameters, 'alpha', 0.9, 1, .001);
                         //
-
             */
             window.addEventListener('resize', onWindowResize, false);
-
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].addEventListener("click", onButtonClick, false);
             }
-
         } // end init
-
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
-
         function animate() {
             requestAnimationFrame(animate);
             render();
         }
-
         function render() {
             var time = performance.now() * 0.001;
-
             bulbLight.position.x = Math.cos(time) * 80;
             bulbLight.position.y = Math.sin(time) * 80;
-
             sphere.position.y = Math.sin(time) * 20 + 5;
             sphere.rotation.x = time * 0.5;
             sphere.rotation.z = time * 0.51;
-
             water.material.uniforms.time.value += 1.0 / 60.0;
             water.material.uniforms.size.value = parameters.size;
             water.material.uniforms.distortionScale.value = parameters.distortionScale;
