@@ -89,6 +89,15 @@
     <button style="bottom:0" id="spell" class="ui">Spell</button>
     <button style="right:0; top:0" id="health" class="ui">Health</button>
     <button style="right:0; bottom:0" id="shield" class="ui">Shield</button>
+		
+		
+		<video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+			<!-- <source src="textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'> -->
+			<source src="textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+		</video>
+		
+		
+		
 		</div>
 
 
@@ -109,12 +118,16 @@
         };
 
         var buttons = document.getElementsByTagName("button");
+		video = document.getElementById( 'video' );
+		
+		var video, texture, material, mesh;
 
         init();
         animate();
 
         function onButtonClick(event) {
             alert(event.target.id);
+			video.play();
         }
 
         function setWater() {
@@ -256,6 +269,9 @@
             //
             setSkybox();
             //
+			texture = new THREE.VideoTexture( video );
+
+			
             var geometry = new THREE.IcosahedronGeometry(20, 2);
             for (var i = 0, j = geometry.faces.length; i < j; i++) {
                 geometry.faces[i].color.setHex(Math.random() * 0xffffff);
