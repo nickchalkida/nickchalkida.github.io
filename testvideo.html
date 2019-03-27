@@ -148,10 +148,10 @@
     <script src="js/Detector.js"></script>
 
     <div id="ControlArea">
-	<button id="MVL" class="controlbutton"><</button>
-	<button id="MVU" class="controlbutton">^</button>
-	<button id="MVD" class="controlbutton">_</button>
-	<button id="MVR" class="controlbutton">></button>
+	<button id="MVL"><</button>
+	<button id="MVU">^</button>
+	<button id="MVD">_</button>
+	<button id="MVR">></button>
 	</div>
 
     <div id="SiteMap">
@@ -234,7 +234,7 @@
         };
 
         var buttons = document.getElementsByClassName("vidbutton");
-        var controlbuttons = document.getElementsByClassName("controlbutton");
+        var controlbuttons = document.getElementsByClassName("button");
         video = document.getElementById('video');
 
         var video, texture, material, mesh;
@@ -469,9 +469,9 @@
                 buttons[i].addEventListener("click", onButtonClick, false);
             }
 			
-            //for (let i = 0; i < controlbuttons.length; i++) {
-            //    controlbuttons[i].addEventListener("click", onControlButtonClick, false);
-            //}
+            for (let i = 0; i < controlbuttons.length; i++) {
+                controlbuttons[i].addEventListener("click", onControlButtonClick, false);
+            }
 
         } // end init
 
