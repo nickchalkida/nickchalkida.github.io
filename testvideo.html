@@ -74,6 +74,19 @@
             display: block;
 			/*background-color: green;*/
         }
+        #ControlArea {
+            position: fixed;
+            top: 60px;
+            left: 5%;
+            width: 140px;
+            text-align: left;
+            padding-left: 40px;
+            display: inline;
+			/*background-color: yellow;*/
+        }
+		.controlbutton{
+			width: 20px;
+		}
         
         @media screen and (max-width: 480px) {
             #QuoteArea {
@@ -112,7 +125,7 @@
             top: 100px;
             right: 5%;
             width: 350px;
-            height: 600px;
+            height: 200px;
             font-size: 20px;
             text-align: justify;
             text-justify: inter-word;
@@ -134,7 +147,12 @@
     <script src="js/Water.js"></script>
     <script src="js/Detector.js"></script>
 
-    <div id="container"></div>
+    <div id="ControlArea">
+	<button id="MVL" class="controlbutton"><</button>
+	<button id="MVU" class="controlbutton">^</button>
+	<button id="MVD" class="controlbutton">_</button>
+	<button id="MVR" class="controlbutton">></button>
+	</div>
 
     <div id="SiteMap">
         <!-- <div class="PageInfo"> -->
@@ -216,6 +234,7 @@
         };
 
         var buttons = document.getElementsByClassName("vidbutton");
+        var controlbuttons = document.getElementsByClassName("controlbutton");
         video = document.getElementById('video');
 
         var video, texture, material, mesh;
@@ -231,10 +250,24 @@
             if (event.target.id == "health") {
                 video.play();
             } else if (event.target.id == "fire") {
-                videoplane.position.y += 20;
+                video.play();
             } else if (event.target.id == "spell") {
-                videoplane.position.y -= 20;
+                video.play();
             } else if (event.target.id == "shield") {
+                video.play();
+            }
+        }
+
+        function onControlButtonClick(event) {
+            //alert(event.target.id);
+
+            if           (event.target.id == "MVL") {
+                videoplane.position.x += 20;
+            } else if (event.target.id == "MVU") {
+                videoplane.position.y += 20;
+            } else if (event.target.id == "MVD") {
+                videoplane.position.y -= 20;
+            } else if (event.target.id == "MVR") {
                 videoplane.position.x += 20;
             }
         }
@@ -434,6 +467,9 @@
 
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].addEventListener("click", onButtonClick, false);
+            }
+            for (let i = 0; i < controlbuttons.length; i++) {
+                controlbuttons[i].addEventListener("click", onControlButtonClick, false);
             }
 
         } // end init
