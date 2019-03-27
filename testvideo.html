@@ -13,7 +13,7 @@
             margin: 0px;
             overflow: hidden;
         }
-
+        
         #SiteMap {
             position: fixed;
             top: 100px;
@@ -21,17 +21,17 @@
             width: 250px;
             text-align: left;
         }
-
+        
         @media screen and (max-width: 480px) {
             #QuoteArea {
                 display: none;
             }
         }
-
+        
         #QuoteArea:hover {
             background-color: #ccff99;
         }
- 
+        
         a:link {
             padding-left: 20px;
             float: left;
@@ -42,63 +42,19 @@
             border: 3px solid #73AD21;
             text-decoration: none;
         }
-
+        
         a:hover {
             background-color: yellow;
         }
-
+        
         p {
             padding-left: 20px;
         }
-	    
-	   .ui {
-			position: absolute;
-		}	
-
+        
+        .ui {
+            position: absolute;
+        }
     </style>
-	<script>
-	var buttons = document.getElementsByTagName("button");
-
-		function onButtonClick(event) {
-			alert(event.target.id);
-		}
-
-		function onbodyloadFunction() {
-			for (let i = 0; i < buttons.length; i++) {
-			buttons[i].addEventListener("click", onButtonClick, false);
-			}		
-
-	        init();
-			animate();
-		}
-		
-	</script>
-</head>
-
-<body onload="onbodyloadFunction()>
-
-    <div id="container"></div>
-
-    <div id="SiteMap">
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/projects.html" target="_self" rel="noopener">Programming</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/projects_tex.html" target="_self" rel="noopener">Tex Projects</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/Geometria/Geometria.html" target="_self" rel="noopener">Geometria</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/profile.html" target="_self" rel="noopener">Profile</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
-        </div>
-    </div>
 
     <script src="js/three.js"></script>
     <script src="js/OrbitControls.js"></script>
@@ -108,6 +64,8 @@
     <script src="js/Detector.js"></script>
 
     <script>
+        var buttons = document.getElementsByTagName("button");
+
         var container, stats;
         var camera, scene, renderer, group;
 
@@ -123,10 +81,20 @@
             alpha: 1.0
         };
 
-var buttons = document.getElementsByTagName("button");
-		function onButtonClick(event) {
-			alert(event.target.id);
-		}
+        var buttons = document.getElementsByTagName("button");
+
+        function onButtonClick(event) {
+            alert(event.target.id);
+        }
+
+        function onbodyloadFunction() {
+            //for (let i = 0; i < buttons.length; i++) {
+            //    buttons[i].addEventListener("click", onButtonClick, false);
+            //}
+
+            init();
+            animate();
+        }
 
         function init() {
 
@@ -198,7 +166,6 @@ var buttons = document.getElementsByTagName("button");
             //bulbLight.visible = false;
             scene.add(bulbLight);
 
-
             //
             setWater();
             //
@@ -246,7 +213,7 @@ var buttons = document.getElementsByTagName("button");
                         gui.add(parameters, 'size', 0.1, 10, 0.1);
                         gui.add(parameters, 'alpha', 0.9, 1, .001);
                         //
-            			
+
             */
             window.addEventListener('resize', onWindowResize, false);
         }
@@ -343,10 +310,38 @@ var buttons = document.getElementsByTagName("button");
             renderer.render(scene, camera);
         }
     </script>
+</head>
+
+<body onload="onbodyloadFunction()>
+
+    <div id=" container "></div>
+
+    <div id="SiteMap ">
+        <div class="PageInfo ">
+            <a href="https://nickchalkida.github.io/ " target="_blank " rel="noopener ">Nikolaos L. Kechris</a>
+        </div>
+        <div class="PageInfo ">
+            <a href="https://nickchalkida.github.io/projects.html " target="_self " rel="noopener ">Programming</a>
+        </div>
+        <div class="PageInfo ">
+            <a href="https://nickchalkida.github.io/projects_tex.html " target="_self " rel="noopener ">Tex Projects</a>
+        </div>
+        <div class="PageInfo ">
+            <a href="https://nickchalkida.github.io/Geometria/Geometria.html " target="_self " rel="noopener ">Geometria</a>
+        </div>
+        <div class="PageInfo ">
+            <a href="https://nickchalkida.github.io/profile.html " target="_self " rel="noopener ">Profile</a>
+        </div>
+        <div class="PageInfo ">
+            <a href="https://nickchalkida.github.io/contact.html " target="_self " rel="noopener ">Contact Info</a>
+        </div>
+    </div>
+
+	<button style="top:0 " id="fire " class="ui ">Fire</button>
+	<button style="bottom:0 " id="spell " class="ui ">Spell</button>
+	<button style="right:0; top:0 "      id="health " class="ui ">Health</button>
+	<button style="right:0; bottom:0 " id="shield " class="ui ">Shield</button>
+
 </body>
-<button style="top:0" id="fire" class="ui">Fire</button>
-<button style="bottom:0" id="spell" class="ui">Spell</button>
-<button style="right:0; top:0"      id="health" class="ui">Health</button>
-<button style="right:0; bottom:0" id="shield" class="ui">Shield</button>
 
 </html>
