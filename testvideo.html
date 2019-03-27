@@ -271,7 +271,11 @@
             setSkybox();
             //
 			texture = new THREE.VideoTexture( video );
-
+				
+			var videogeometry = new THREE.PlaneGeometry( 5, 20, 32 );
+			var videomaterial = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+			var videoplane = new THREE.Mesh( videogeometry, videomaterial );
+			scene.add( videoplane );
 			
             var geometry = new THREE.IcosahedronGeometry(20, 2);
             for (var i = 0, j = geometry.faces.length; i < j; i++) {
