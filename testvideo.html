@@ -51,8 +51,6 @@
 </head>
 
 <body>
-
-
     <script src="js/three.js"></script>
     <script src="js/OrbitControls.js"></script>
     <script src="js/DragControls.js"></script>
@@ -60,22 +58,32 @@
     <script src="js/Water.js"></script>
     <script src="js/Detector.js"></script>
 
-    <script>
-        //if (!Detector.webgl) Detector.addGetWebGLMessage();
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-45654546-3', 'auto');
-        ga('send', 'pageview');
+	
+	<div id="container"></div>
 
+    <div id="SiteMap">
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects.html" target="_self" rel="noopener">Programming</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects_tex.html" target="_self" rel="noopener">Tex Projects</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/Geometria/Geometria.html" target="_self" rel="noopener">Geometria</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/profile.html" target="_self" rel="noopener">Profile</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
+        </div>
+    </div>
+	
+	
+	    <script>
         var container, stats;
         var camera, scene, renderer, group;
 
@@ -307,29 +315,7 @@
             renderer.render(scene, camera);
         }
     </script>
-	
-	<div id="container"></div>
 
-    <div id="SiteMap">
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/projects.html" target="_self" rel="noopener">Programming</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/projects_tex.html" target="_self" rel="noopener">Tex Projects</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/Geometria/Geometria.html" target="_self" rel="noopener">Geometria</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/profile.html" target="_self" rel="noopener">Profile</a>
-        </div>
-        <div class="PageInfo">
-            <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
-        </div>
-    </div>
 
 </body>
 
