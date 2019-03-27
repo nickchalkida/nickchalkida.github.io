@@ -48,6 +48,11 @@
         p {
             padding-left: 20px;
         }
+
+		 #vidbutton {
+		 width: 250px;
+		 height: 25px;
+		 }
 		
 		 #QuoteArea {
             position: fixed;
@@ -105,16 +110,16 @@
     <!-- <button style="right:0; top:0" id="health" class="ui">Health</button> -->
     <!-- <button style="right:0; bottom:0" id="shield" class="ui">Shield</button> -->
         <div class="PageInfo">
-				<button>Fire</button>
+				<button  class="vidbutton">Fire</button>
         </div>
 			<div class="PageInfo">
-				<button>Spell</button>
+				<button  class="vidbutton">Spell</button>
         </div>
         <div class="PageInfo">
-				<button>Health</button>
+				<button  class="vidbutton">Health</button>
         </div>
         <div class="PageInfo">
-				<button>Shield</button>
+				<button  class="vidbutton">Shield</button>
         </div>
 		
 	</div>
@@ -164,7 +169,7 @@
             alpha: 1.0
         };
 
-        var buttons = document.getElementsByTagName("button");
+        var buttons = document.getElementsByClassName("vidbutton");
 		video = document.getElementById( 'video' );
 		
 		var video, texture, material, mesh;
