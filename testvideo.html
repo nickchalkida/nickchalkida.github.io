@@ -240,19 +240,34 @@
         var videoplane;
         init();
         animate();
-        video.play();
+        //video.play();
+		
+        function onControlButtonClick(event) {
+            //alert(event.target.id);
+            if (event.target.id == "MVL") {
+                videoplane.position.x -= 20;
+            } else if (event.target.id == "MVU") {
+                videoplane.position.y += 20;
+            } else if (event.target.id == "MVD") {
+                videoplane.position.y -= 20;
+            } else if (event.target.id == "MVR") {
+                videoplane.position.x += 20;
+            }
+        }
+		
         function onButtonClick(event) {
             //alert(event.target.id);
             if (event.target.id == "health") {
                 video.play();
             } else if (event.target.id == "fire") {
-                videoplane.position.y += 20;
+                video.play();
             } else if (event.target.id == "spell") {
-                videoplane.position.y -= 20;
+                video.play();
             } else if (event.target.id == "shield") {
-                videoplane.position.x += 20;
+                video.play();
             }
         }
+		
         function setWater() {
             var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
             water = new THREE.Water(
