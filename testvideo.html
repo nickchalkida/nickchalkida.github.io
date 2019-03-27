@@ -46,6 +46,11 @@
         p {
             padding-left: 20px;
         }
+		
+		.ui {
+			position: absolute;
+		}
+
     </style>
 </head>
 
@@ -79,12 +84,11 @@
             <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
         </div>
     </div>
-	
-	<button style="top:0" id="fire" class="ui">Fire</button>
-	<button style="bottom:0" id="spell" class="ui">Spell</button>
-	<button style="right:0; top:0"      id="health" class="ui">Health</button>
-	<button style="right:0; bottom:0" id="shield" class="ui">Shield</button>
 
+    <button style="top:0" id="fire" class="ui">Fire</button>
+    <button style="bottom:0" id="spell" class="ui">Spell</button>
+    <button style="right:0; top:0" id="health" class="ui">Health</button>
+    <button style="right:0; bottom:0" id="shield" class="ui">Shield</button>
 
     <script>
         var container, stats;
@@ -102,17 +106,14 @@
             alpha: 1.0
         };
 
-		var buttons = document.getElementsByTagName("button");
-		
-		
+        var buttons = document.getElementsByTagName("button");
+
         init();
         animate();
-		
-		
-		function onButtonClick(event) {
-			alert(event.target.id);
-		}
 
+        function onButtonClick(event) {
+            alert(event.target.id);
+        }
 
         function setWater() {
             var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
@@ -298,13 +299,12 @@
 
             */
             window.addEventListener('resize', onWindowResize, false);
-			
-			for (let i = 0; i < buttons.length; i++) {
-				buttons[i].addEventListener("click", onButtonClick, false);
-			}
+
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener("click", onButtonClick, false);
+            }
 
         } // end init
-
 
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
