@@ -20,8 +20,8 @@
             left: 5%;
             width: 250px;
             text-align: left;
-			padding: 10px 24px;
-			display: block;
+            padding: 10px 24px;
+            display: block;
         }
         
         @media screen and (max-width: 480px) {
@@ -48,30 +48,29 @@
         p {
             padding-left: 20px;
         }
-
-		 #vidbutton {
-		 width: 250px;
-		 height: 25px;
-		 }
-		
-		 #QuoteArea {
+        
+        #vidbutton {
+            width: 250px;
+            height: 25px;
+        }
+        
+        #QuoteArea {
             position: fixed;
             display: block;
             top: 100px;
             right: 5%;
             width: 350px;
             height: 600px;
-			font-size: 20px;
+            font-size: 20px;
             text-align: justify;
             text-justify: inter-word;
             padding-right: 20px;
             border: 3px solid #73AD21;
         }
-
+        
         #QuoteArea:hover {
             background-color: #ccff99;
         }
-
     </style>
 </head>
 
@@ -104,54 +103,49 @@
         <div class="PageInfo">
             <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
         </div>
-		
-    <!-- <button style="top:0" id="fire" class="ui">Fire</button> -->
-    <!-- <button style="bottom:0" id="spell" class="ui">Spell</button> -->
-    <!-- <button style="right:0; top:0" id="health" class="ui">Health</button> -->
-    <!-- <button style="right:0; bottom:0" id="shield" class="ui">Shield</button> -->
-        <div class="PageInfo">
-				<button  class="vidbutton">Fire</button>
-        </div>
-			<div class="PageInfo">
-				<button  class="vidbutton">Spell</button>
-        </div>
-        <div class="PageInfo">
-				<button  class="vidbutton">Health</button>
-        </div>
-        <div class="PageInfo">
-				<button  class="vidbutton">Shield</button>
-        </div>
-		
-	</div>
 
-    <div id="QuoteArea">
-	<marquee behavior="scroll" direction="up" id="mymarquee" scrollamount="1" onmouseover="this.stop();" onmouseout="this.start();">
-		<p id="mypara01">
-				Those magnitudes are said to be commensurable which are measured by the same measure, and those incommensurable which cannot have any common measure.
-    	</p>
-		<p id="mypara02">
-                Straight lines are commensurable in square when the squares on them are measured by the same area, and incommensurable in square when the squares on them cannot possibly have any area as a common measure.
-    	</p>
-		<p id="mypara03">
-                With these hypotheses, it is proved that there exist straight lines infinite in multitude which are commensurable and incommensurable respectively, some in length only, and others in square also, with an assigned straight line. Let then the assigned straight line be called rational, and those straight lines which are commensurable with it, whether in length and in square, or in square only, rational, but those that are incommensurable with it irrational.
-    	</p>
-		<p id="mypara04">
-                And the let the square on the assigned straight line be called rational, and those areas which are commensurable with it rational, but those which are incommensurable with it irrational, and the straight lines which produce them irrational, that is, in case the areas are squares, the sides themselves, but in case they are any other rectilineal figures, the straight lines on which are described squares equal to them.
-    	</p>
-	</marquee>
+        <!-- <button style="top:0" id="fire" class="ui">Fire</button> -->
+        <!-- <button style="bottom:0" id="spell" class="ui">Spell</button> -->
+        <!-- <button style="right:0; top:0" id="health" class="ui">Health</button> -->
+        <!-- <button style="right:0; bottom:0" id="shield" class="ui">Shield</button> -->
+        <div class="PageInfo">
+            <button class="vidbutton">Fire</button>
+        </div>
+        <div class="PageInfo">
+            <button class="vidbutton">Spell</button>
+        </div>
+        <div class="PageInfo">
+            <button class="vidbutton">Health</button>
+        </div>
+        <div class="PageInfo">
+            <button class="vidbutton">Shield</button>
+        </div>
+
     </div>
 
-		
-		
-		<video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
-			<!-- <source src="textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'> -->
-			<source src="textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-		</video>
-		
-		
-		
-		</div>
+    <div id="QuoteArea">
+        <marquee behavior="scroll" direction="up" id="mymarquee" scrollamount="1" onmouseover="this.stop();" onmouseout="this.start();">
+            <p id="mypara01">
+                Those magnitudes are said to be commensurable which are measured by the same measure, and those incommensurable which cannot have any common measure.
+            </p>
+            <p id="mypara02">
+                Straight lines are commensurable in square when the squares on them are measured by the same area, and incommensurable in square when the squares on them cannot possibly have any area as a common measure.
+            </p>
+            <p id="mypara03">
+                With these hypotheses, it is proved that there exist straight lines infinite in multitude which are commensurable and incommensurable respectively, some in length only, and others in square also, with an assigned straight line. Let then the assigned straight line be called rational, and those straight lines which are commensurable with it, whether in length and in square, or in square only, rational, but those that are incommensurable with it irrational.
+            </p>
+            <p id="mypara04">
+                And the let the square on the assigned straight line be called rational, and those areas which are commensurable with it rational, but those which are incommensurable with it irrational, and the straight lines which produce them irrational, that is, in case the areas are squares, the sides themselves, but in case they are any other rectilineal figures, the straight lines on which are described squares equal to them.
+            </p>
+        </marquee>
+    </div>
 
+    <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+        <!-- <source src="textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'> -->
+        <source src="textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    </div>
 
     <script>
         var container, stats;
@@ -170,27 +164,27 @@
         };
 
         var buttons = document.getElementsByClassName("vidbutton");
-		video = document.getElementById( 'video' );
-		
-		var video, texture, material, mesh;
-		var videoplane;
+        video = document.getElementById('video');
+
+        var video, texture, material, mesh;
+        var videoplane;
 
         init();
         animate();
-			video.play();
+        video.play();
 
         function onButtonClick(event) {
             //alert(event.target.id);
-			
-			if (event.target.id=="health") {
-				video.play();
-			} else if (event.target.id=="fire") {
-				videoplane.position.y += 20;
-			} else if (event.target.id=="spell") {
-				videoplane.position.y -= 20;
-			} else if (event.target.id=="shield") {
-				videoplane.position.x += 20;
-			}
+
+            if (event.target.id == "health") {
+                video.play();
+            } else if (event.target.id == "fire") {
+                videoplane.position.y += 20;
+            } else if (event.target.id == "spell") {
+                videoplane.position.y -= 20;
+            } else if (event.target.id == "shield") {
+                videoplane.position.x += 20;
+            }
         }
 
         function setWater() {
@@ -332,12 +326,14 @@
             //
             setSkybox();
             //
-			vidtexture = new THREE.VideoTexture( video );			
-			var videogeometry = new THREE.PlaneGeometry( 100, 50, 1,1 );
-			var videomaterial = new THREE.MeshBasicMaterial( {map: vidtexture} );
-			videoplane = new THREE.Mesh( videogeometry, videomaterial );
-			scene.add( videoplane );
-			
+            vidtexture = new THREE.VideoTexture(video);
+            var videogeometry = new THREE.PlaneGeometry(100, 50, 1, 1);
+            var videomaterial = new THREE.MeshBasicMaterial({
+                map: vidtexture
+            });
+            videoplane = new THREE.Mesh(videogeometry, videomaterial);
+            scene.add(videoplane);
+
             var geometry = new THREE.IcosahedronGeometry(20, 2);
             for (var i = 0, j = geometry.faces.length; i < j; i++) {
                 geometry.faces[i].color.setHex(Math.random() * 0xffffff);
