@@ -22,6 +22,19 @@
             text-align: left;
         }
         
+        #QuoteArea {
+            position: fixed;
+            display: block;
+            top: 100px;
+            right: 5%;
+            width: 350px;
+            height: 600px;
+            text-align: justify;
+            text-justify: inter-word;
+            padding-right: 20px;
+            border: 3px solid #73AD21;
+        }
+        
         @media screen and (max-width: 480px) {
             #QuoteArea {
                 display: none;
@@ -50,28 +63,52 @@
         p {
             padding-left: 20px;
         }
-        
-        .ui {
-            position: absolute;
-        }
     </style>
-	<script>
-	
-	       function onButtonClick(event) {
-            alert(event.target.id);
-        }
-
-		function onbodyloadFunction() {
-		alert("Hello");
-            //for (let i = 0; i < buttons.length; i++) {
-            //    buttons[i].addEventListener("click", onButtonClick, false);
-            //}
-
-        }
-	</script>
 </head>
 
-<body onload="onbodyloadFunction()">
+<body>
+
+    <div id="container"></div>
+
+    <div id="SiteMap">
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects.html" target="_self" rel="noopener">Programming</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/projects_tex.html" target="_self" rel="noopener">Tex Projects</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/Geometria/Geometria.html" target="_self" rel="noopener">Geometria</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/profile.html" target="_self" rel="noopener">Profile</a>
+        </div>
+        <div class="PageInfo">
+            <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a>
+        </div>
+    </div>
+
+    <div id="QuoteArea">
+        <p><b>Euclid's Elements - Book X - Definitions</b></p>
+
+        <ul>
+            <li>
+                Those magnitudes are said to be commensurable which are measured by the same measure, and those incommensurable which cannot have any common measure.
+            </li>
+            <li>
+                Straight lines are commensurable in square when the squares on them are measured by the same area, and incommensurable in square when the squares on them cannot possibly have any area as a common measure.
+            </li>
+            <li>
+                With these hypotheses, it is proved that there exist straight lines infinite in multitude which are commensurable and incommensurable respectively, some in length only, and others in square also, with an assigned straight line. Let then the assigned straight line be called rational, and those straight lines which are commensurable with it, whether in length and in square, or in square only, rational, but those that are incommensurable with it irrational.
+            </li>
+            <li>
+                And the let the square on the assigned straight line be called rational, and those areas which are commensurable with it rational, but those which are incommensurable with it irrational, and the straight lines which produce them irrational, that is, in case the areas are squares, the sides themselves, but in case they are any other rectilineal figures, the straight lines on which are described squares equal to them.
+            </li>
+        </ul>
+    </div>
 
     <script src="js/three.js"></script>
     <script src="js/OrbitControls.js"></script>
@@ -81,7 +118,20 @@
     <script src="js/Detector.js"></script>
 
     <script>
-        var buttons = document.getElementsByTagName("button");
+        //if (!Detector.webgl) Detector.addGetWebGLMessage();
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-45654546-3', 'auto');
+        ga('send', 'pageview');
 
         var container, stats;
         var camera, scene, renderer, group;
@@ -97,12 +147,8 @@
             distortionScale: 3.7,
             alpha: 1.0
         };
-
-        var buttons = document.getElementsByTagName("button");
-
- 
-            init();
-            animate();
+        init();
+        animate();
 
         function init() {
 
@@ -194,7 +240,7 @@
             scene.add(sphere);
             objects.push(sphere);
 
-            //
+             //
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.maxPolarAngle = Math.PI * 0.495;
             controls.target.set(0, 10, 0);
@@ -317,38 +363,7 @@
             water.material.uniforms.alpha.value = parameters.alpha;
             renderer.render(scene, camera);
         }
-		
-
     </script>
-
-    <div id=" container "></div>
-
-    <div id="SiteMap ">
-        <div class="PageInfo ">
-            <a href="https://nickchalkida.github.io/ " target="_blank " rel="noopener ">Nikolaos L. Kechris</a>
-        </div>
-        <div class="PageInfo ">
-            <a href="https://nickchalkida.github.io/projects.html " target="_self " rel="noopener ">Programming</a>
-        </div>
-        <div class="PageInfo ">
-            <a href="https://nickchalkida.github.io/projects_tex.html " target="_self " rel="noopener ">Tex Projects</a>
-        </div>
-        <div class="PageInfo ">
-            <a href="https://nickchalkida.github.io/Geometria/Geometria.html " target="_self " rel="noopener ">Geometria</a>
-        </div>
-        <div class="PageInfo ">
-            <a href="https://nickchalkida.github.io/profile.html " target="_self " rel="noopener ">Profile</a>
-        </div>
-        <div class="PageInfo ">
-            <a href="https://nickchalkida.github.io/contact.html " target="_self " rel="noopener ">Contact Info</a>
-        </div>
-    </div>
-
-	<button style="top:0 " id="fire " class="ui ">Fire</button>
-	<button style="bottom:0 " id="spell " class="ui ">Spell</button>
-	<button style="right:0; top:0 "      id="health " class="ui ">Health</button>
-	<button style="right:0; bottom:0 " id="shield " class="ui ">Shield</button>
-
 </body>
 
 </html>
