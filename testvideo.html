@@ -55,6 +55,23 @@
             position: absolute;
         }
     </style>
+	<script>
+	
+	       function onButtonClick(event) {
+            alert(event.target.id);
+        }
+
+		function onbodyloadFunction() {
+		alert("Hello");
+            //for (let i = 0; i < buttons.length; i++) {
+            //    buttons[i].addEventListener("click", onButtonClick, false);
+            //}
+
+        }
+	</script>
+</head>
+
+<body onload="onbodyloadFunction()">
 
     <script src="js/three.js"></script>
     <script src="js/OrbitControls.js"></script>
@@ -83,10 +100,9 @@
 
         var buttons = document.getElementsByTagName("button");
 
-        function onButtonClick(event) {
-            alert(event.target.id);
-        }
-
+ 
+            init();
+            animate();
 
         function init() {
 
@@ -302,20 +318,8 @@
             renderer.render(scene, camera);
         }
 		
-		function onbodyloadFunction() {
-		alert("Hello");
-            //for (let i = 0; i < buttons.length; i++) {
-            //    buttons[i].addEventListener("click", onButtonClick, false);
-            //}
-
-            init();
-            animate();
-        }
 
     </script>
-</head>
-
-<body onload="onbodyloadFunction()>
 
     <div id=" container "></div>
 
