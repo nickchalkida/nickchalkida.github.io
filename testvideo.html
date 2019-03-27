@@ -121,14 +121,24 @@
 		video = document.getElementById( 'video' );
 		
 		var video, texture, material, mesh;
+		var videoplane;
 
         init();
         animate();
 			video.play();
 
         function onButtonClick(event) {
-            alert(event.target.id);
-			video.play();
+            //alert(event.target.id);
+			
+			if (event.target.id=="health") {
+				video.play();
+			} else if (event.target.id=="fire") {
+				videoplane.position.y += 20;
+			} else if (event.target.id=="spell") {
+				videoplane.position.y -= 20;
+			} else if (event.target.id=="shield") {
+				videoplane.position.x += 20;
+			}
         }
 
         function setWater() {
@@ -273,7 +283,7 @@
 			vidtexture = new THREE.VideoTexture( video );			
 			var videogeometry = new THREE.PlaneGeometry( 100, 50, 1,1 );
 			var videomaterial = new THREE.MeshBasicMaterial( {map: vidtexture} );
-			var videoplane = new THREE.Mesh( videogeometry, videomaterial );
+			videoplane = new THREE.Mesh( videogeometry, videomaterial );
 			scene.add( videoplane );
 			
             var geometry = new THREE.IcosahedronGeometry(20, 2);
