@@ -52,27 +52,26 @@
         }
 	    
 	   .ui {
-	position: absolute;
-	}
+			position: absolute;
+		}	
 
     </style>
 	<script>
-var buttons = document.getElementsByTagName("button");
+	var buttons = document.getElementsByTagName("button");
 
 		function onButtonClick(event) {
 			alert(event.target.id);
 		}
 
-	function onbodyloadFunction() {
-for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", onButtonClick, false);
-	
+		function onbodyloadFunction() {
+			for (let i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener("click", onButtonClick, false);
+			}		
+
 	        init();
-        animate();
-
-}
-
+			animate();
 		}
+		
 	</script>
 </head>
 
