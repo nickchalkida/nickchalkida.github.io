@@ -22,13 +22,12 @@
             text-align: left;
         }
         
-        
         @media screen and (max-width: 480px) {
             #QuoteArea {
                 display: none;
             }
         }
-               
+        
         a:link {
             padding-left: 20px;
             float: left;
@@ -58,8 +57,7 @@
     <script src="js/Water.js"></script>
     <script src="js/Detector.js"></script>
 
-	
-	<div id="container"></div>
+    <div id="container"></div>
 
     <div id="SiteMap">
         <div class="PageInfo">
@@ -82,8 +80,13 @@
         </div>
     </div>
 	
-	
-	    <script>
+	<button style="top:0" id="fire" class="ui">Fire</button>
+	<button style="bottom:0" id="spell" class="ui">Spell</button>
+	<button style="right:0; top:0"      id="health" class="ui">Health</button>
+	<button style="right:0; bottom:0" id="shield" class="ui">Shield</button>
+
+
+    <script>
         var container, stats;
         var camera, scene, renderer, group;
 
@@ -98,8 +101,82 @@
             distortionScale: 3.7,
             alpha: 1.0
         };
+
+		var buttons = document.getElementsByTagName("button");
+		
+		
         init();
         animate();
+		
+		
+		function onButtonClick(event) {
+			alert(event.target.id);
+		}
+
+
+        function setWater() {
+            var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
+            water = new THREE.Water(
+                waterGeometry, {
+                    textureWidth: 512,
+                    textureHeight: 512,
+                    waterNormals: new THREE.TextureLoader().load(
+                        //'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskybox/waternormals.jpg', 
+                        'textures/cube/skyboxsun25deg/waternormals.jpg',
+                        function(texture) {
+                            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                        }),
+                    alpha: parameters.alpha,
+                    sunDirection: light.position.clone().normalize(),
+                    sunColor: 0xffffff,
+                    waterColor: 0x001e0f,
+                    distortionScale: parameters.distortionScale,
+                    fog: scene.fog !== undefined
+                }
+            );
+            water.rotation.x = -Math.PI / 2;
+            water.receiveShadow = true;
+
+            scene.add(water);
+        }
+
+        function setSkybox() {
+            var cubeTextureLoader = new THREE.CubeTextureLoader();
+
+            cubeTextureLoader.setPath('textures/cube/skyboxsun25deg/');
+            //cubeMap = cubeTextureLoader.load( [
+            //	'px.jpg', 'nx.jpg',
+            //	'py.jpg', 'ny.jpg',
+            //	'pz.jpg', 'nz.jpg',
+            //] );
+
+            cubeTextureLoader.setCrossOrigin('anonymous');
+            //cubeTextureLoader.setCrossOrigin( '' );
+            //cubeTextureLoader.setPath( 'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskyboxsun25deg/' );
+            cubeMap = cubeTextureLoader.load([
+                'px.jpg',
+                'nx.jpg',
+                'py.jpg',
+                'ny.jpg',
+                'pz.jpg',
+                'nz.jpg',
+            ]);
+
+            var cubeShader = THREE.ShaderLib['cube'];
+            cubeShader.uniforms['tCube'].value = cubeMap;
+            var skyBoxMaterial = new THREE.ShaderMaterial({
+                fragmentShader: cubeShader.fragmentShader,
+                vertexShader: cubeShader.vertexShader,
+                uniforms: cubeShader.uniforms,
+                side: THREE.BackSide
+            });
+            var skyBoxGeometry = new THREE.BoxBufferGeometry(
+                parameters.oceanSide * 5 + 100,
+                parameters.oceanSide * 5 + 100,
+                parameters.oceanSide * 5 + 100);
+            var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+            scene.add(skyBox);
+        }
 
         function init() {
 
@@ -191,7 +268,7 @@
             scene.add(sphere);
             objects.push(sphere);
 
-             //
+            //
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.maxPolarAngle = Math.PI * 0.495;
             controls.target.set(0, 10, 0);
@@ -221,71 +298,13 @@
 
             */
             window.addEventListener('resize', onWindowResize, false);
-        }
+			
+			for (let i = 0; i < buttons.length; i++) {
+				buttons[i].addEventListener("click", onButtonClick, false);
+			}
 
-        function setWater() {
-            var waterGeometry = new THREE.PlaneBufferGeometry(parameters.oceanSide * 5, parameters.oceanSide * 5);
-            water = new THREE.Water(
-                waterGeometry, {
-                    textureWidth: 512,
-                    textureHeight: 512,
-                    waterNormals: new THREE.TextureLoader().load(
-                        //'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskybox/waternormals.jpg', 
-                        'textures/cube/skyboxsun25deg/waternormals.jpg',
-                        function(texture) {
-                            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                        }),
-                    alpha: parameters.alpha,
-                    sunDirection: light.position.clone().normalize(),
-                    sunColor: 0xffffff,
-                    waterColor: 0x001e0f,
-                    distortionScale: parameters.distortionScale,
-                    fog: scene.fog !== undefined
-                }
-            );
-            water.rotation.x = -Math.PI / 2;
-            water.receiveShadow = true;
+        } // end init
 
-            scene.add(water);
-        }
-
-        function setSkybox() {
-            var cubeTextureLoader = new THREE.CubeTextureLoader();
-
-            cubeTextureLoader.setPath('textures/cube/skyboxsun25deg/');
-            //cubeMap = cubeTextureLoader.load( [
-            //	'px.jpg', 'nx.jpg',
-            //	'py.jpg', 'ny.jpg',
-            //	'pz.jpg', 'nz.jpg',
-            //] );
-
-            cubeTextureLoader.setCrossOrigin('anonymous');
-            //cubeTextureLoader.setCrossOrigin( '' );
-            //cubeTextureLoader.setPath( 'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskyboxsun25deg/' );
-            cubeMap = cubeTextureLoader.load([
-                'px.jpg',
-                'nx.jpg',
-                'py.jpg',
-                'ny.jpg',
-                'pz.jpg',
-                'nz.jpg',
-            ]);
-
-            var cubeShader = THREE.ShaderLib['cube'];
-            cubeShader.uniforms['tCube'].value = cubeMap;
-            var skyBoxMaterial = new THREE.ShaderMaterial({
-                fragmentShader: cubeShader.fragmentShader,
-                vertexShader: cubeShader.vertexShader,
-                uniforms: cubeShader.uniforms,
-                side: THREE.BackSide
-            });
-            var skyBoxGeometry = new THREE.BoxBufferGeometry(
-                parameters.oceanSide * 5 + 100,
-                parameters.oceanSide * 5 + 100,
-                parameters.oceanSide * 5 + 100);
-            var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
-            scene.add(skyBox);
-        }
 
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -315,7 +334,6 @@
             renderer.render(scene, camera);
         }
     </script>
-
 
 </body>
 
