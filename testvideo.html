@@ -87,14 +87,6 @@
             alert(event.target.id);
         }
 
-        function onbodyloadFunction() {
-            //for (let i = 0; i < buttons.length; i++) {
-            //    buttons[i].addEventListener("click", onButtonClick, false);
-            //}
-
-            init();
-            animate();
-        }
 
         function init() {
 
@@ -309,6 +301,17 @@
             water.material.uniforms.alpha.value = parameters.alpha;
             renderer.render(scene, camera);
         }
+		
+		function onbodyloadFunction() {
+		alert("Hello");
+            //for (let i = 0; i < buttons.length; i++) {
+            //    buttons[i].addEventListener("click", onButtonClick, false);
+            //}
+
+            init();
+            animate();
+        }
+
     </script>
 </head>
 
