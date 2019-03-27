@@ -271,7 +271,7 @@
             setSkybox();
             //
 			vidtexture = new THREE.VideoTexture( video );			
-			var videogeometry = new THREE.PlaneGeometry( 200, 150, 1,1 );
+			var videogeometry = new THREE.PlaneGeometry( 100, 50, 1,1 );
 			var videomaterial = new THREE.MeshBasicMaterial( {map: vidtexture} );
 			var videoplane = new THREE.Mesh( videogeometry, videomaterial );
 			scene.add( videoplane );
