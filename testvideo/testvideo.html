@@ -159,29 +159,6 @@
  
 
     <div id="SiteMap">
-        <!-- <div class="PageInfo"> -->
-            <!-- <a href="https://nickchalkida.github.io/" target="_blank" rel="noopener">Nikolaos L. Kechris</a> -->
-        <!-- </div> -->
-        <!-- <div class="PageInfo"> -->
-            <!-- <a href="https://nickchalkida.github.io/projects.html" target="_self" rel="noopener">Programming</a> -->
-        <!-- </div> -->
-        <!-- <div class="PageInfo"> -->
-            <!-- <a href="https://nickchalkida.github.io/projects_tex.html" target="_self" rel="noopener">Tex Projects</a> -->
-        <!-- </div> -->
-        <!-- <div class="PageInfo"> -->
-            <!-- <a href="https://nickchalkida.github.io/Geometria/Geometria.html" target="_self" rel="noopener">Geometria</a> -->
-        <!-- </div> -->
-        <!-- <div class="PageInfo"> -->
-            <!-- <a href="https://nickchalkida.github.io/profile.html" target="_self" rel="noopener">Profile</a> -->
-        <!-- </div> -->
-        <!-- <div class="PageInfo"> -->
-            <!-- <a href="https://nickchalkida.github.io/contact.html" target="_self" rel="noopener">Contact Info</a> -->
-        <!-- </div> -->
-
-        <!-- <button style="top:0" id="fire" class="ui">Fire</button> -->
-        <!-- <button style="bottom:0" id="spell" class="ui">Spell</button> -->
-        <!-- <button style="right:0; top:0" id="health" class="ui">Health</button> -->
-        <!-- <button style="right:0; bottom:0" id="shield" class="ui">Shield</button> -->
         <div id="fire" class="vidbutton">
             Fire
         </div>
@@ -216,7 +193,7 @@
 
     <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
         <!-- <source src="textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'> -->
-        <source src="textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        <source src="resources/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
     </video>
 
     </div>
@@ -278,7 +255,7 @@
                     textureHeight: 512,
                     waterNormals: new THREE.TextureLoader().load(
                         //'https://github.com/nickchalkida/nickchalkida.github.io/tree/master/images/textures/cubeskybox/waternormals.jpg', 
-                        'textures/cube/skyboxsun25deg/waternormals.jpg',
+                        'resources/waternormals.jpg',
                         function(texture) {
                             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
                         }),
@@ -296,7 +273,7 @@
         }
         function setSkybox() {
             var cubeTextureLoader = new THREE.CubeTextureLoader();
-            cubeTextureLoader.setPath('textures/cube/skyboxsun25deg/');
+            cubeTextureLoader.setPath('resources/');
             //cubeMap = cubeTextureLoader.load( [
             //	'px.jpg', 'nx.jpg',
             //	'py.jpg', 'ny.jpg',
