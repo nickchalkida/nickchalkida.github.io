@@ -12,6 +12,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Lato';
+  src: url('Lato-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
 body {
@@ -54,16 +61,17 @@ h4 {
   line-height: 1.2;
 }
 p { margin: .65rem 0 1rem; }
+/* Use Lato for bold labels/letters; missing glyphs fall back to Chalkis. */
+b, strong { font-family: 'Lato', 'Chalkis', sans-serif; font-weight: 700; }
 ul, ol { padding-left: 1.5em; }
 li { margin: .35rem 0; }
-/* Enlarge diagrams and let the surrounding Greek text flow beside them. */
+/* Images are sized by script to 1.2 times their native pixel dimensions. */
 img {
   float: right;
   display: block;
-  width: 62%;
-  max-width: 760px;
-  min-width: 320px;
+  width: auto;
   height: auto;
+  max-width: 55%;
   margin: .25rem 0 1.1rem 1.35rem;
   border: 1px solid #e5e1d8;
   border-radius: 4px;
@@ -75,9 +83,9 @@ body > p:last-child { clear: both; margin-top: 1.5rem; font: 15px/1.5 system-ui,
 @media (max-width: 760px) {
   body { margin: .75rem auto; padding: 0 .85rem; font-size: 28px; }
   img {
-    width: 100%;
+    width: auto !important;
+    height: auto !important;
     max-width: 100%;
-    min-width: 0;
     float: none;
     margin: .8rem auto 1rem;
   }
