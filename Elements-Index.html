@@ -5,13 +5,86 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Εὐκλείδου Στοιχεῖα — Ancient Greek text</title>
 <meta name="description" content="Ancient Greek text of Euclid's Elements, Books I–XIII.">
-<style>
-@font-face { font-family: 'Chalkis'; src: url('Chalkis.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
-body { max-width: 58rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.65; font-family: 'Chalkis', serif; }
-</style>
+<style>@font-face {
+  font-family: 'Chalkis';
+  src: url('Chalkis.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  max-width: 82rem;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Chalkis', serif;
+  font-size: 28px;
+  line-height: 1.20;
+  color: #202020;
+  background: #fff;
+}
+nav {
+  clear: both;
+  margin: 1.1rem 0 1.5rem;
+  padding: .65rem .9rem;
+  border: 1px solid #dedbd3;
+  border-radius: 8px;
+  background: #f7f5f0;
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+nav a, body > p:last-child a { text-decoration: none; }
+a { color: #315b78; }
+a:hover { text-decoration: underline; }
+h3 {
+  clear: both;
+  margin: 1.4rem 0 1rem;
+  padding-bottom: .35rem;
+  border-bottom: 2px solid #dedbd3;
+  font-size: 1.35em;
+  line-height: 1.2;
+}
+h4 {
+  clear: both;
+  scroll-margin-top: 1rem;
+  margin: 1.4rem 0 .65rem;
+  font-size: 1.12em;
+  line-height: 1.2;
+}
+p { margin: .65rem 0 1rem; }
+ul, ol { padding-left: 1.5em; }
+li { margin: .35rem 0; }
+/* Enlarge diagrams and let the surrounding Greek text flow beside them. */
+img {
+  float: right;
+  display: block;
+  width: 62%;
+  max-width: 760px;
+  min-width: 320px;
+  height: auto;
+  margin: .25rem 0 1.1rem 1.35rem;
+  border: 1px solid #e5e1d8;
+  border-radius: 4px;
+  background: #fff;
+}
+/* Clear each diagram before the next proposition/section, not after every paragraph. */
+body::after { content: ""; display: block; clear: both; }
+body > p:last-child { clear: both; margin-top: 1.5rem; font: 15px/1.5 system-ui, sans-serif; }
+@media (max-width: 760px) {
+  body { margin: .75rem auto; padding: 0 .85rem; font-size: 28px; }
+  img {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    float: none;
+    margin: .8rem auto 1rem;
+  }
+}</style>
 </head>
 <body>
-<h1>Εὐκλείδου Στοιχεῖα — Ancient Greek text</h1>
+<h3>Εὐκλείδου Στοιχεῖα — Ancient Greek text</h3>
 <p>Browse the text by book. The Greek text is included directly in each HTML page.</p>
 <ol>
 <li><a href="Elements-Book-01.html">Βιβλίο 1</a></li>
